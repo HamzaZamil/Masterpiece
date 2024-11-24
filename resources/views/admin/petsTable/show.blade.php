@@ -24,7 +24,7 @@
               <!-- Edit Pet Form -->
               <div class="container mt-5">
                 <h2>Edit Pet</h2>
-                <form action="{{ route('admin.pets.editPet') }}" method="POST">
+                <form action="{{ route('admin.pets.storePet') }}" method="POST">
                   @csrf
                   <input type="hidden" name="id" value="{{ $pet->id ?? '' }}">
                   

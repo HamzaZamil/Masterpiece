@@ -34,14 +34,19 @@ Route::get('/', function () {
 Route::controller(UserController::class)->prefix('admin/users')->name('admin.users.')->group(function(){
 Route::get('/','index' )->name('index');
 Route::get('/addUser','create' )->name('addUser');
-// Route::get('/userDetails','create' )->name('userDetails');
 Route::post('/storeUser','store' )->name('storeUser');
+Route::get('/editUser/{id}/edit','edit' )->name('editUser');
+Route::patch('/updateUser/{id}' , 'update')->name('updateUser');
+Route::delete('deleteUser/{id}' , 'destroy')->name('deleteUser');
 });
 
 Route::controller(PetController::class)->prefix('admin/pets')->name('admin.pets.')->group(function(){
 Route::get('/','index' )->name('index');
 Route::get('/addPet','create' )->name('addPet');
-Route::get('/editPet','store' )->name('editPet');
+Route::post('/storePet','store' )->name('storePet');
+Route::get('/editPet/{id}/edit','edit' )->name('editPet');
+Route::put('/updatePet/{id}','update' )->name('updatePet');
+Route::delete('/deletePet/{id}','destroy' )->name('deletePet'); 
 });
 
 Route::controller(CategoryController::class)->prefix('admin/categories')->name('admin.categories.')->group(function(){
@@ -50,9 +55,10 @@ Route::get('/addCategory','create' )->name('addCategory');
 Route::post('/storeCategory','store' )->name('storeCategory');
 });
 
-Route::controller(ServiceController::class)->prefix('admin/services')->name('admin.services.')->group(function(){
-Route::get('/','index' )->name('index');
-Route::get('/serviceDetails','show' )->name('show');
+Route::controller(AppointmentController::class)->prefix('admin/appointments')->name('admin.appointments.')->group(function(){
+    Route::get('/','index' )->name('index');
+    Route::get('/addAppointment','create' )->name('addAppointment');
+    Route::post('/storeAppointment','store' )->name('storeAppointment');
 });
 
 Route::controller(OrderController::class)->prefix('admin/orders')->name('admin.orders.')->group(function(){
@@ -65,10 +71,10 @@ Route::controller(ItemController::class)->prefix('admin/items')->name('admin.ite
     Route::get('/itemDetails','show' )->name('show');
 });
 
-Route::controller(AppointmentController::class)->prefix('admin/appointments')->name('admin.appointments.')->group(function(){
+Route::controller(ServiceController::class)->prefix('admin/services')->name('admin.services.')->group(function(){
     Route::get('/','index' )->name('index');
-    Route::get('/appointmentDetails','show' )->name('show');
-});
+    Route::get('/serviceDetails','show' )->name('show');
+    });
 
 Route::controller(ContactUsController::class)->prefix('admin/contactUs')->name('admin.contactUs.')->group(function(){
 Route::get('/','index' )->name('index');

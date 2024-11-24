@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.usersTable.index');
+        $data = User::all();
+        return view('admin.usersTable.index', compact('data'));
 
     }
 
@@ -27,19 +30,32 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-       $request->validate([
-        'first_name' => ['required', 'string', 'min:5', 'max:20'],
-        'last_name' => ['required', 'string', 'min:5', 'max:20'],
-        'email' => ['required', 'email'],
-        'gender' => 'rules4',
-        'phone' => 'rules5',
-        'address' => ['nullable'],
-        'role' => 'rules7',
-       ],[
-        'first_name.required' => 'You must fill this field'
-       ]);
+
+        $validatedData = $request->validated();
+
+        // Hash the password
+        $validatedData['password'] = bcrypt($validatedData['password']);
+
+        // Create the user
+        User::create($validatedData);
+
+        // Redirect to the users table
+        return redirect('/admin/users')->with('success','USER added successfully');
+   
+
+    //    $request->validate([
+    //     'first_name' => ['required', 'string', 'min:3', 'max:20'],
+    //     'last_name' => ['required', 'string', 'min:3', 'max:20'],
+    //     'email' => ['required', 'email'],
+    //     'gender' => ['required'],
+    //     'phone' => ['required'],
+    //     'address' => ['nullable'],
+    //     'role' => ['required'],
+    //    ],[
+    //     'first_name.required' => 'You must fill this field'
+    //    ]);
     }
 
     /**
@@ -55,22 +71,42 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('admin.usersTable.update', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function update(StoreUserRequest $request, string $id)
+{
+    $validatedData = $request->validated();
+
+    // Hash the password
+    $validatedData['password'] = bcrypt($validatedData['password']);
+
+    // Create the user
+    $user = User::findOrFail($id);
+
+    // Save changes to the database
+    $user->update($validatedData);
+
+    // Redirect with success message
+    return redirect()->route('admin.users.index')->with('success', 'User updated successfully!');
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        // Delete the user
+        $user->delete();
+    
+        // Redirect to the user index page with a success message
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully!');
     }
 }

@@ -20,32 +20,39 @@
 
                 <div class="card">
                     <div class="card-body">
-                        
-                        <!-- Table with stripped rows -->
-                        <div class="container mt-5">
-                            <h2 class="mb-4">Categories Table</h2>
-                            <div class="container mt-5">
-                                <h2>Edit Category</h2>
-                                <form action="{{route('admin.categories.storeCategory')}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="id" value="">
-                                    <div class="mb-3">
-                                        <label for="categoryName" class="form-label">Category Name</label>
-                                        <input type="text" class="form-control" id="categoryName" name="category_name" value="" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="categoryDescription" class="form-label">Category Description</label>
-                                        <textarea class="form-control" id="categoryDescription" name="category_description" rows="3" required></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="categoryPicture" class="form-label">Category Picture</label>
-                                        <input type="file" class="form-control" id="categoryPicture" name="category_picture" accept="image/*">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    <a href="/categories_table" class="btn btn-secondary">Cancel</a>
-                                </form>
+
+                        <h2 class="text-center mb-4">Add Category</h2>
+
+                        <form action="{{ route('admin.categories.storeCategory') }}" method="POST" enctype="multipart/form-data" class="p-4">
+                            @csrf
+                            <input type="hidden" name="id" value="">
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="categoryName" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" id="categoryName" name="category_name" value="" required>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="categoryDescription" class="form-label">Category Description</label>
+                                    <textarea class="form-control" id="categoryDescription" name="category_description" rows="4" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="categoryPicture" class="form-label">Category Picture</label>
+                                    <input type="file" class="form-control" id="categoryPicture" name="category_picture" accept="image/*">
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                                <a href="/categories_table" class="btn btn-secondary px-5">Cancel</a>
+                            </div>
+                        </form>
 
                     </div>
                 </div>

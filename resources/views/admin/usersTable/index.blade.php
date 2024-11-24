@@ -41,36 +41,32 @@
                                         <th>Phone</th>
                                         <th>Gender</th>
                                         <th>Address</th>
+                                        <th>Role</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($data as $user)
                                     <tr>
-                                        <td>1</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john.doe@example.com</td>
-                                        <td>+1234567890</td>
-                                        <td>Male</td>
-                                        <td>123 Main St, City</td>
+                                        <td>{{ $user['id']  }}</td>
+                                        <td>{{ $user['name'] }}</td>
+                                        <td>{{ $user['last_name'] }}</td>
+                                        <td>{{ $user['email'] }}</td>
+                                        <td>{{ $user['phone_number'] }}</td>
+                                        <td>{{ $user['gender'] }}</td>
+                                        <td>{{ $user['address'] }}</td>
+                                        <td>{{ $user['role'] }}</td>
+
                                         <td>
-                                            <button class="btn btn-primary btn-sm">Edit</button>
-                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                            <a href="{{ route('admin.users.editUser', $user['id']) }}" class="btn btn-warning">Edit</a>
+                                            <form action="{{ route('admin.users.deleteUser', $user['id']) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete(this)">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jane</td>
-                                        <td>Smith</td>
-                                        <td>jane.smith@example.com</td>
-                                        <td>+0987654321</td>
-                                        <td>Female</td>
-                                        <td>456 Elm St, City</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm">Edit</button>
-                                            <button class="btn btn-danger btn-sm">Delete</button>
-                                        </td>
-                                    </tr>
+                                @endforeach
                                     <!-- Add more user rows as needed -->
                                 </tbody>
                             </table>

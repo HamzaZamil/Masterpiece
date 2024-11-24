@@ -48,34 +48,27 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($data as $pet)
                       <tr>
-                        <td>1</td>
-                        <td><img src="/images/pets/buddy.jpg" alt="Buddy" class="img-fluid" style="width: 60px; height: 60px; border-radius: 10%;"></td>
-                        <td>Buddy</td>
-                        <td>Dog</td>
-                        <td>Golden Retriever</td>
-                        <td>3</td>
-                        <td>25</td>
-                        <td>Male</td>
-                        <td>
-                          <button class="btn btn-primary btn-sm">Edit</button>
-                          <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
+                          <td>{{ $pet['id']  }}</td>
+                          <td>{{ $pet['pet_image'] }}</td>
+                          <td>{{ $pet['pet_name'] }}</td>
+                          <td>{{ $pet['pet_type'] }}</td>
+                          <td>{{ $pet['pet_breed'] }}</td>
+                          <td>{{ $pet['pet_age'] }}</td>
+                          <td>{{ $pet['pet_weight'] }}</td>
+                          <td>{{ $pet['pet_gender'] }}</td>
+
+                          <td>
+                              <a href="{{ route('admin.pets.editPet', $pet['id']) }}" class="btn btn-warning">Edit</a>
+                              <form action="{{ route('admin.pets.deletePet', $pet['id']) }}" method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="button" class="btn btn-danger" onclick="confirmDelete(this)">Delete</button>
+                              </form>
+                          </td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td><img src="/images/pets/kitty.jpg" alt="Kitty" class="img-fluid" style="width: 60px; height: 60px; border-radius: 10%;"></td>
-                        <td>Kitty</td>
-                        <td>Cat</td>
-                        <td>Persian</td>
-                        <td>2</td>
-                        <td>5</td>
-                        <td>Female</td>
-                        <td>
-                          <button class="btn btn-primary btn-sm">Edit</button>
-                          <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                      </tr>
+                  @endforeach
                       <!-- Add more pet rows dynamically from the database as needed -->
                     </tbody>
                   </table>
