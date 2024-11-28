@@ -41,46 +41,24 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
+                                @foreach($categories as $category)
                                 <tbody>
                                     <!-- Static Rows -->
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Electronics</td>
-                                        <td>Devices, gadgets, and accessories</td>
-                                        <td>
-                                            <img src="/images/electronics.jpg" alt="Electronics" class="img-fluid" style="width: 80px; height: auto;">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm">Edit</button>
-                                            <button class="btn btn-danger btn-sm">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Furniture</td>
-                                        <td>Chairs, tables, and sofas</td>
-                                        <td>
-                                            <img src="/images/furniture.jpg" alt="Furniture" class="img-fluid" style="width: 80px; height: auto;">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm">Edit</button>
-                                            <button class="btn btn-danger btn-sm">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Books</td>
-                                        <td>Educational and fictional books</td>
-                                        <td>
-                                            <img src="/images/books.jpg" alt="Books" class="img-fluid" style="width: 80px; height: auto;">
-                                        </td>
+                                    <tr>    
+                                        <td>{{$category['category_id']}}</td>
+                                        <td>{{$category['category_name']}}</td>
+                                        <td>{{$category['category_description']}}</td>
+                                        <td>{{$category['category_picture']}}</td>
+                                        
                                         <td>
                                             <button class="btn btn-primary btn-sm">Edit</button>
                                             <button class="btn btn-danger btn-sm">Delete</button>
                                         </td>
                                     </tr>
                                     <!-- Add more rows if needed -->
+                                    @endforeach
                                 </tbody>
+
                             </table>
                         </div>
 

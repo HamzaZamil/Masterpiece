@@ -35,7 +35,8 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('admin.ordersTable.show');
+
     }
 
     /**
@@ -51,7 +52,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return view('admin.ordersTable.update');
+
     }
 
     /**

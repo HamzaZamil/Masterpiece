@@ -23,7 +23,7 @@
 
                         <h2 class="text-center mb-4">Edit User</h2>
 
-                        <form action="{{route('admin.users.updateUser', $user->'id'])}}" method="POST" class="p-4">
+                        <form action="{{route('admin.users.updateUser', $user->id)}}" method="POST" class="p-4">
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">

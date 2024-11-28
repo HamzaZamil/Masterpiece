@@ -29,22 +29,22 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <label for="categoryName" class="form-label">Category Name</label>
-                                    <input type="text" class="form-control" id="categoryName" name="category_name" value="" required>
+                                    <label for="category_name" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" id="category_name" name="category_name" value="" required>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <label for="categoryDescription" class="form-label">Category Description</label>
-                                    <textarea class="form-control" id="categoryDescription" name="category_description" rows="4" required></textarea>
+                                    <label for="category_description" class="form-label">Category Description</label>
+                                    <textarea class="form-control" id="category_description" name="category_description" rows="4" required></textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <label for="categoryPicture" class="form-label">Category Picture</label>
-                                    <input type="file" class="form-control" id="categoryPicture" name="category_picture" accept="image/*">
+                                    <label for="category_picture" class="form-label">Category Picture</label>
+                                    <input type="file" class="form-control" id="category_picture" name="category_picture" accept="image/*">
                                 </div>
                             </div>
 

@@ -26,7 +26,7 @@
                         <!-- Pet Edit Form -->
                         <form action="{{ route('admin.pets.updatePet', $pet['id']) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
+                            @method('PATCH')
 
                             <div class="mb-3">
                                 <label for="pet_name" class="form-label">Pet Name</label>

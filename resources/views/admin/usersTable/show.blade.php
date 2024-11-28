@@ -4,82 +4,37 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Users</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active">Users Table</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+  <div class="table">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($data as $user)
+            <tr>
+                <td>{{ $user['name'] }}</td>
+                <td>{{ $user['last_name'] }}</td>
+                <td>{{ $user['email'] }}</td>
+                <td>{{ $user['phone_number'] }}</td>
+                <td>{{ $user['gender'] }}</td>
+                <td>{{ $user['address'] }}</td>
+                <td>{{ $user['role'] }}</td>
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              
-              
-              <!-- Table with stripped rows -->
-              <div class="container mt-5">
-  <h2 class="mb-4">Users Table</h2>
-  <div class="container mt-5">
-  <h2>Edit User</h2>
-  <form action="{{route('admin.users.editUser')}}" method="POST">
-    <input type="hidden" name="id" value="">
-    <div class="mb-3">
-      <label for="firstName" class="form-label">First Name</label>
-      <input type="text" class="form-control" id="firstName" name="first_Name" value="" required>
-    </div>
-    <div class="mb-3">
-      <label for="lastName" class="form-label">Last Name</label>
-      <input type="text" class="form-control" id="lastName" name="last_Name" value="" required>
-    </div>
-    <div class="mb-3">
-  <label for="gender" class="form-label">Gender</label>
-  <select class="form-control" id="gender" name="gender" required>
-    <option value="" disabled selected>Select Gender</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-  </select>
-</div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" name="email" value="" required>
-    </div>
-    <div class="mb-3">
-      <label for="phone" class="form-label">Phone</label>
-      <input type="text" class="form-control" id="phone" name="phone_number" value="" required>
-    </div>
-    <div class="mb-3">
-      <label for="phone" class="form-label">Address</label>
-      <input type="text" class="form-control" id="phone" name="address" value="" required>
-    </div>
-    <div class="mb-3">
-  <label for="role" class="form-label">Role</label>
-  <select class="form-control" id="role" name="role" required>
-    <option value="" disabled selected>Select Role</option>
-    <option value="vet">Vet</option>
-    <option value="user">User</option>
-  </select>
-</div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a href="users_table.php" class="btn btn-secondary">Cancel</a>
-  </form>
-</div>
+             
+            </tr>
+        @endforeach
+            <!-- Add more user rows as needed -->
+        </tbody>
+    </table>
 </div>
 
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main><!-- End #main -->
-
-
-
+</main>
 @endsection

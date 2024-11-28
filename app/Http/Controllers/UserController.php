@@ -63,7 +63,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = User::all();
+        return view('admin.usersTable.show', compact('data'));
     }
 
     /**

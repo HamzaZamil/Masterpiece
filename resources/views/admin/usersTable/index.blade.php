@@ -34,13 +34,9 @@
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>#</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Gender</th>
-                                        <th>Address</th>
                                         <th>Role</th>
                                         <th>Actions</th>
                                     </tr>
@@ -48,21 +44,18 @@
                                 <tbody>
                                     @foreach ($data as $user)
                                     <tr>
-                                        <td>{{ $user['id']  }}</td>
                                         <td>{{ $user['name'] }}</td>
                                         <td>{{ $user['last_name'] }}</td>
                                         <td>{{ $user['email'] }}</td>
-                                        <td>{{ $user['phone_number'] }}</td>
-                                        <td>{{ $user['gender'] }}</td>
-                                        <td>{{ $user['address'] }}</td>
                                         <td>{{ $user['role'] }}</td>
 
-                                        <td>
-                                            <a href="{{ route('admin.users.editUser', $user['id']) }}" class="btn btn-warning">Edit</a>
+                                        <td> 
+                                            <a href="{{ route('admin.users.editUser', $user['id']) }}" class="btn btn-light bg-"><i class="bi bi-pencil-square "></i></a>
+                                            <a href="{{ route('admin.users.showUser', $user['id']) }}" class="btn btn-warning bg-"><i class="bi bi-eye"></i></a>
                                             <form action="{{ route('admin.users.deleteUser', $user['id']) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-danger" onclick="confirmDelete(this)">Delete</button>
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
                                             </form>
                                         </td>
                                     </tr>
