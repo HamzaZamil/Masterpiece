@@ -26,6 +26,16 @@
                         <form action="{{ route('admin.pets.storePet') }}" method="POST" enctype="multipart/form-data" class="p-4">
                             @csrf
 
+                            <div>
+                                <!-- user Selection -->
+                                <select class="form-control" id="userId" name="user_id" required>
+                                    <option value="" disabled selected>Select user</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->id }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="pet_name" class="form-label">Pet Name</label>

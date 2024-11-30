@@ -22,8 +22,9 @@ return new class extends Migration
             $table->enum('pet_gender', ['male', 'female']); // Gender of the pet
             $table->string('pet_image')->nullable(); // Pet's image file path
             $table->text('pet_medical_history')->nullable(); // Medical history of the pet
-            $table->boolean('is_deleted')->default(0);
             $table->timestamps(); // Created at and updated at timestamps
+            $table->softDeletes('deleted_at');
+
 
             // Foreign key constraint
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -108,7 +108,7 @@
                         
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary px-5">Save Changes</button>
-                                <a href="users_table.php" class="btn btn-secondary px-5">Cancel</a>
+                                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary px-5">Cancel</a>
                             </div>
                         </form>
 

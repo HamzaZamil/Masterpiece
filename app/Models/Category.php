@@ -10,7 +10,13 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['category_name',
-    'category_description',
-    'category_picture'];
+    protected $fillable = [
+        
+        'category_name',
+        'category_description',
+        'category_picture'
+
+    ];
+    protected $table = 'categories'; // Ensure this matches your table name
+    protected $primaryKey = 'category_id'; // Specify the primary key
 }

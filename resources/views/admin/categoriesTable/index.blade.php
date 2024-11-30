@@ -34,7 +34,6 @@
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>#</th>
                                         <th>Category Name</th>
                                         <th>Category Description</th>
                                         <th>Category Picture</th>
@@ -45,14 +44,17 @@
                                 <tbody>
                                     <!-- Static Rows -->
                                     <tr>    
-                                        <td>{{$category['category_id']}}</td>
                                         <td>{{$category['category_name']}}</td>
                                         <td>{{$category['category_description']}}</td>
                                         <td>{{$category['category_picture']}}</td>
                                         
-                                        <td>
-                                            <button class="btn btn-primary btn-sm">Edit</button>
-                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                        <td class="d-flex">
+                                            <a href="{{ route('admin.categories.editCategory', $category['category_id']) }}" class="btn btn-warning"><i class="bi bi-pencil-square "></i></a>
+                                            <form action="{{ route('admin.categories.deleteCategory', $category['category_id']) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <!-- Add more rows if needed -->

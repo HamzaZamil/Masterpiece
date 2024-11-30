@@ -49,9 +49,9 @@
                                         <td>{{ $user['email'] }}</td>
                                         <td>{{ $user['role'] }}</td>
 
-                                        <td> 
-                                            <a href="{{ route('admin.users.editUser', $user['id']) }}" class="btn btn-light bg-"><i class="bi bi-pencil-square "></i></a>
-                                            <a href="{{ route('admin.users.showUser', $user['id']) }}" class="btn btn-warning bg-"><i class="bi bi-eye"></i></a>
+                                        <td class="d-flex"> 
+                                            <a href="{{ route('admin.users.editUser', $user['id']) }}" class="btn btn-warning"><i class="bi bi-pencil-square "></i></a>
+                                            <a href="{{ route('admin.users.showUser', $user['id']) }}" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             <form action="{{ route('admin.users.deleteUser', $user['id']) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')

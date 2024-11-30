@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePetRequest; // Assuming you create a request for validation
 use App\Models\Pet;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PetController extends Controller
@@ -22,7 +23,8 @@ class PetController extends Controller
      */
     public function create()
     {
-        return view('admin.petsTable.create');
+        $users = User::all(['id']);
+        return view('admin.petsTable.create', compact('users'));
     }
 
     /**
@@ -32,6 +34,7 @@ class PetController extends Controller
 {
     // Validate the request data
     $validatedData = $request->validate([
+        'user_id' => 'required|exists:users,id',
         'pet_name' => 'required|string|max:255',
         'pet_type' => 'required|string',
         'pet_breed' => 'required|string|max:255',
@@ -41,6 +44,7 @@ class PetController extends Controller
         'pet_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
     ]);
 
+   
     // Handle file upload for pet image
     if ($request->hasFile('pet_image')) {
         $imagePath = $request->file('pet_image')->store('pets', 'public');
@@ -48,10 +52,10 @@ class PetController extends Controller
     }
 
     // Create a new pet record using the validated data
-    Pet::create($validatedData);
+    Pet::create(attributes: $validatedData);
 
     // Redirect to the pet index page with a success message
-    return redirect()->route('admin.pets.index')->with('success', 'Pet added successfully!');
+    return redirect()->route(route: 'admin.pets.index')->with('success', 'Pet added successfully!');
 }
 
     /**
@@ -59,8 +63,8 @@ class PetController extends Controller
      */
     public function show(string $id)
     {
-        $pet = Pet::findOrFail($id); // Find the pet or throw a 404
-        return view('admin.pets.show', compact('pet'));
+        $data = Pet::all();
+        return view('admin.petsTable.show', compact('data'));
     }
 
     /**

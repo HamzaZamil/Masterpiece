@@ -65,6 +65,11 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="pet_medical_history" class="form-label">Pet Medical History</label>
+                                <textarea class="form-control" id="pet_medical_history" name="pet_medical_history" value="{{ $pet['pet_medical_history'] }}" rows="4"></textarea>       
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="pet_image" class="form-label">Pet Picture</label>
                                 <input type="file" class="form-control" id="pet_image" name="pet_image">
                                 @if($pet['pet_image'])

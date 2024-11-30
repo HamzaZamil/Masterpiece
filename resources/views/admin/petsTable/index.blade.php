@@ -32,39 +32,32 @@
               <!-- Table with stripped rows -->
               <div class="container mt-5">
                 <h2 class="mb-4">Pets Table</h2>
-                <div class="table">
+                <div class="table-responsive">
                   <table class="table  table-bordered">
                     <thead class="table-dark">
                       <tr>
-                        <th>#</th>
-                        <th>Pet Picture</th>
-                        <th>Pet Name</th>
-                        <th>Pet Type</th>
-                        <th>Pet Breed</th>
-                        <th>Pet Age</th>
-                        <th>Pet Weight</th>
-                        <th>Pet Gender</th>
-                        <th>Actions</th>
+                        <th scope="col">Pet Name</th>
+                        <th scope="col">Pet Type</th>
+                        <th scope="col">Pet Breed</th>
+                        <th scope="col">Pet Gender</th>
+                        <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach ($data as $pet)
                       <tr>
-                          <td>{{ $pet['id']  }}</td>
-                          <td>{{ $pet['pet_image'] }}</td>
                           <td>{{ $pet['pet_name'] }}</td>
                           <td>{{ $pet['pet_type'] }}</td>
                           <td>{{ $pet['pet_breed'] }}</td>
-                          <td>{{ $pet['pet_age'] }}</td>
-                          <td>{{ $pet['pet_weight'] }}</td>
                           <td>{{ $pet['pet_gender'] }}</td>
 
-                          <td>
-                              <a href="{{ route('admin.pets.editPet', $pet['id']) }}" class="btn btn-warning">Edit</a>
+                          <td class="d-flex">
+                              <a href="{{ route('admin.pets.editPet', $pet['id']) }}" class="btn btn-warning"><i class="bi bi-pencil-square "></i></a>
+                              <a href="{{ route('admin.pets.showPet', $pet['id']) }}" class="btn btn-info "><i class="bi bi-eye"></i></a>
                               <form action="{{ route('admin.pets.deletePet', $pet['id']) }}" method="POST">
                                   @csrf
                                   @method('DELETE')
-                                  <button type="button" class="btn btn-danger" onclick="confirmDelete(this)">Delete</button>
+                                  <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
                               </form>
                           </td>
                       </tr>
