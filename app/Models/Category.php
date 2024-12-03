@@ -18,5 +18,12 @@ class Category extends Model
 
     ];
     protected $table = 'categories'; // Ensure this matches your table name
+    
     protected $primaryKey = 'category_id'; // Specify the primary key
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'category_id');
+    }
+    
 }

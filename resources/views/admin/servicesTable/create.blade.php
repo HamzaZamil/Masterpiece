@@ -23,6 +23,17 @@
                     <div class="card-body">
 
                         <h2 class="text-center mb-4">Add New Service</h2>
+                        @if ($errors->all())
+                    <div>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-danger">
+                                    {{ $error }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                         <form action="{{ route('admin.services.storeService') }}" method="POST" enctype="multipart/form-data" class="p-4">
                             @csrf
@@ -32,34 +43,33 @@
                                     <label for="service_name" class="form-label">Service Name</label>
                                     <input type="text" class="form-control" id="service_name" name="service_name" value="{{ old('service_name') }}" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="category" class="form-label">Category</label>
-                                    <select class="form-select" id="category" name="category" required>
-                                        <option value="">Select Category</option>
-                                        <option value="Pets">Pets</option>
-                                        <option value="Cleaning">Cleaning</option>
-                                        <option value="Gardening">Gardening</option>
-                                    </select>
-                                </div>
+                               
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="price" class="form-label">Price ($)</label>
-                                    <input type="number" class="form-control" id="price" name="price" value="{{ old('price') }}" step="0.01" required>
+                                    <label for="service_price" class="form-label">Price ($)</label>
+                                    <input type="number" class="form-control" id="service_price" name="service_price" value="{{ old('service_price') }}" step="0.01" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="image" class="form-label">Service Image</label>
-                                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                                </div>
+                               
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" id="description" name="description" rows="4" required>{{ old('description') }}</textarea>
+                                    <label for="service_duration" class="form-label">Duration (in minutes)</label>
+                                    <input type="number" class="form-control" id="service_duration" name="service_duration" value="{{ old('service_duration') }}" step="1" min="1" required>
                                 </div>
                             </div>
+                            
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="service_description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="service_description" name="service_description" rows="4" required>{{ old('service_description') }}</textarea>
+                                </div>
+                            </div>
+
+                          
 
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary px-5">Save Service</button>

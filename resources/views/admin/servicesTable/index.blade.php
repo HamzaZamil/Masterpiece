@@ -35,38 +35,33 @@
                             <table class="table table-striped table-hover">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>#</th>
                                         <th>Service Name</th>
-                                        <th>Category</th>
-                                        <th>Price</th>
-                                        <th>Description</th>
+                                        <th>Service Description</th>
+                                        <th>Service Price</th>
+                                        <th>Service Duration</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
+                                @foreach($services as $service)
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Dog Grooming</td>
-                                        <td>Pets</td>
-                                        <td>$50</td>
-                                        <td>Complete grooming service for dogs.</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</button>
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
+                                    <!-- Static Rows -->
+                                    <tr>    
+                                        <td>{{$service['service_name']}}</td>
+                                        <td>{{$service['service_description']}}</td>
+                                        <td>{{$service['service_price']}}</td>
+                                        <td>{{$service['service_duration']}}</td>
+                                        
+                                        <td class="d-flex">
+                                            <a href="{{ route('admin.services.editService', $service['id']) }}" class="btn btn-warning"><i class="bi bi-pencil-square "></i></a>
+                                            <form action="{{ route('admin.services.deleteService', $service['id']) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Cat Sitting</td>
-                                        <td>Pets</td>
-                                        <td>$30</td>
-                                        <td>Daytime sitting service for cats.</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</button>
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
-                                        </td>
-                                    </tr>
-                                    <!-- Add more service rows dynamically if needed -->
+                                    <!-- Add more rows if needed -->
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

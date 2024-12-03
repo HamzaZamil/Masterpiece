@@ -22,27 +22,47 @@
                     <div class="card-body">
 
                         <h2 class="text-center mb-4">Add Appointment</h2> 
+                        @if ($errors->all())
+                    <div>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-danger">
+                                    {{ $error }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                         <form action="{{ route('admin.appointments.storeAppointment') }}" method="POST" enctype="multipart/form-data" class="p-4">
                             @csrf
                             <div>
-                            <!-- Service Selection -->
-                            <select class="form-control" id="serviceId" name="service_id" required>
-                                <option value="" disabled selected>Select Service</option>
-                                @foreach ($services as $service)
-                                    <option value="{{ $service->id }}">{{ $service->service_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <!-- Pet Selection -->
-                            <select class="form-control" id="petId" name="pet_id" required>
-                                <option value="" disabled selected>Select Pet</option>
-                                @foreach ($pets as $pet)
+                                <!-- user Selection -->
+                                <select class="form-control" id="user_id" name="user_id" required>
+                                    <option value="" disabled selected>Select User</option>
+                                    @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <!-- Pet Selection -->
+                                <select class="form-control" id="petId" name="pet_id" required>
+                                    <option value="" disabled selected>Select Pet</option>
+                                    @foreach ($pets as $pet)
                                     <option value="{{ $pet->id }}">{{ $pet->pet_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <!-- Service Selection -->
+                                <select class="form-control" id="serviceId" name="service_id" required>
+                                    <option value="" disabled selected>Select Service</option>
+                                    @foreach ($services as $service)
+                                        <option value="{{ $service->id }}">{{ $service->service_name }}</option>
+                                    @endforeach
+                                </select>
+                             </div>
                             <!-- Appointment Date -->
                             <div class="row mb-3">
                                 <div class="col-md-6">

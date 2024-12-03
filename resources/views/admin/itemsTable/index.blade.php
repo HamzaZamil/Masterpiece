@@ -24,7 +24,7 @@
                         
                         <!-- Add Item Button -->
                         <div class="text-end mb-3">
-                            <button class="btn btn-success"><i class="bi bi-plus-circle"></i> Add Item</button>
+                            <a href="{{ route('admin.items.addItem') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add Item</a>
                         </div>
 
                         <!-- Items Table -->
@@ -38,42 +38,31 @@
                                         <th>Description</th>
                                         <th>Price</th>
                                         <th>Stock</th>
-                                        {{-- <th>Image</th> --}}
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Cat</td>
-                                        <td>Litterbox</td>
-                                        <td>High-quality litterbox for cats.</td>
-                                        <td>$25.99</td>
-                                        <td>20</td>
-                                        {{-- <td>
-                                            <img src="https://via.placeholder.com/640x480.png/00cc11?text=categories+Category+Image+sint" alt="Item Image" class="img-thumbnail" style="width: 50px;">
-                                        </td> --}}
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</button>
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Dog</td>
-                                        <td>Chew Toy</td>
-                                        <td>Durable chew toy for dogs.</td>
-                                        <td>$15.50</td>
-                                        <td>50</td>
-                                        {{-- <td>
-                                            <img src="https://via.placeholder.com/640x480.png/00cc11?text=categories+Category+Image+sint" alt="Item Image" class="img-thumbnail" style="width: 50px;">
-                                        </td> --}}
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</button>
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
-                                        </td>
-                                    </tr>
-                                    <!-- Add more rows dynamically if needed -->
+                                    @foreach ($items as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ ucfirst($item->item_type) }}</td>
+                                            <td>{{ $item->item_name }}</td>
+                                            <td>{{ $item->item_description }}</td>
+                                            <td>${{ number_format($item->item_price, 2) }}</td>
+                                            <td>{{ $item->item_stock }}</td>
+                                            <td>
+                                                <!-- Edit Button -->
+                                                <a href="{{ route('admin.items.editItem', $item->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+
+                                                <!-- Delete Button -->
+                                                <form action="{{ route('admin.items.deleteItem', $item->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

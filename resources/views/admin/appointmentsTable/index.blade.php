@@ -38,9 +38,9 @@
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>#</th>
                                         <th>User Name</th>
                                         <th>Service Name</th>
+                                        <th>Pet Name</th>
                                         <th>Appointment Date</th>
                                         <th>Appointment Time</th>
                                         <th>Appointment Status</th>
@@ -49,9 +49,9 @@
                                 <tbody>
                                     @foreach ($appointments as $appointment)
                                         <tr>
-                                            <td>{{ $appointment['appointment_id'] }}</td>
                                             <td>{{ $appointment['user_name'] }}</td>
                                             <td>{{ $appointment['service_name'] }}</td>
+                                            <td>{{ $appointment['pet_name'] }}</td> <!-- <-- Changed pet_id to pet_name -->
                                             <td>{{ $appointment['appointment_date'] }}</td>
                                             <td>{{ $appointment['appointment_time'] }}</td>
                                             <td>{{ ucfirst($appointment['appointment_status']) }}</td>

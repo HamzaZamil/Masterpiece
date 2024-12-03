@@ -72,11 +72,11 @@ Route::middleware(['auth'])->group(function () {
         
                 Route::controller(ItemController::class)->prefix('admin/items')->name('admin.items.')->group(function(){
                 Route::get('/','index' )->name('index');
-                Route::get('/addiItem','create' )->name('addPet');
+                Route::get('/addItem','create' )->name('addItem');
                 Route::post('/storeItem', 'store')->name('storeItem');
                 Route::get('/editItem/{id}/edit', 'edit')->name('editItem');
                 Route::put('/updateItem/{id}', 'update')->name('updateItem');
-                Route::delete('/deleteItem/{id}', 'destroy')->name('deleteItemItem');
+                Route::delete('/deleteItem/{id}', 'destroy')->name('deleteItem');
                });
 
                 Route::controller(PetController::class)->prefix('admin/pets')->name('admin.pets.')->group(function(){

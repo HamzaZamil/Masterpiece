@@ -18,6 +18,6 @@ class Service extends Model
 
     public function appointments()
 {
-    return $this->hasMany(Appointment::class, 'service_id');
+    return $this->hasMany(Appointment::class, 'id');
 }
 }
