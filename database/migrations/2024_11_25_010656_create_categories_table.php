@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('category_description', 255)->nullable();
             $table->string('category_picture', 255)->nullable();
             $table->timestamps();
-            $table->softDeletes('deleted_at');
+            $table->softDeletes(column: 'deleted_at');
         });
     }
 

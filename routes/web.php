@@ -9,6 +9,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\OrderItemsController;
+use App\Http\Controllers\WishListController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,7 +26,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/', function(){
+  return view('publicSite.homePage.index');
+});
 
+Route::get('/cart', function(){
+  return view('publicSite.cart.cart');
+});
+
+Route::get('/shop', function(){
+  return view('publicSite.shop.shop');
+});
+
+Route::get('/shopDetails', function(){
+  return view('publicSite.shop-details.shop-details');
+});
+
+Route::get('/whyChooseUs', function(){
+  return view('publicSite.whyChooseUs.whyChooseUs');
+});
+
+Route::get('/contactPage', function(){
+  return view('publicSite.contactPage.contactPage');
+});
+
+Route::get('/checkout', function(){
+  return view('publicSite.checkout.checkout');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/index', function(){
@@ -52,11 +80,11 @@ Route::middleware(['auth'])->group(function () {
              Route::get('/contactUsDetails','show' )->name('show');
                   });
 
-             Route::get('/', function () {
+             Route::get('/admin', function () {
                    return view('admin.index');
                  })->name(''); 
         
-             Route::get('/', function () {
+             Route::get('/admin', function () {
                      return view('admin.index');
                  })->name('admin.dashboard'); 
         
@@ -84,7 +112,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/addPet','create' )->name('addPet');
                 Route::post('/storePet','store' )->name('storePet');
                 Route::get('/editPet/{id}/edit','edit' )->name('editPet');
-                Route::get('/showPet/{id}/show','show' )->name('showPet');
+                Route::get('/showPet/{id}/show',action: 'show' )->name('showPet');
                 Route::patch('/updatePet/{id}','update' )->name('updatePet');
                 Route::delete('/deletePet/{id}','destroy' )->name('deletePet'); 
               });
@@ -120,9 +148,32 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/','index' )->name('index');
                 Route::get('/addOrder','create' )->name('addOrder');
                 Route::post('/storeOrder','store' )->name('storeOrder');
+                Route::get('/showOrder/{id}/show',action: 'show' )->name('showOrder');
                 Route::get('/editOrder/{id}/edit','edit' )->name('editOrder');
                 Route::patch('/updateOrder/{id}','update' )->name('updateOrder');
                 Route::delete('/deleteOrder/{id}','destroy' )->name('deleteOrder');
+                  });
+
+
+                  Route::controller(OrderItemsController::class)->prefix('admin/orderItems')->name('admin.orderItems.')->group(function(){
+                      Route::get('/', 'index')->name('index');
+                      Route::get('/addOrderItem', 'create')->name('addOrderItems');
+                      Route::post('/storeOrderItem', 'store')->name('storeOrderItems');
+                      Route::get('/showOrderItems/{id}/show', 'show')->name('showOrderItems');
+                      Route::get('/editOrderItems/{id}/edit', 'edit')->name('editOrderItems');
+                      Route::patch('/updateOrderItems/{id}', 'update')->name('updateOrderItems');
+                      Route::delete('/deleteOrderItems/{id}', 'destroy')->name('deleteOrderItems');
+                  });
+
+
+                  Route::controller(WishListController::class)->prefix('admin/WishList')->name('admin.wishList.')->group(function(){
+                      Route::get('/', 'index')->name('index');
+                      Route::get('/addWishList', 'create')->name('addWishList');
+                      Route::post('/storeOrderItem', 'store')->name('storeWishList');
+                      Route::get('/showWishList/{id}/show', 'show')->name('showWishList');
+                      Route::get('/editWishList/{id}/edit', 'edit')->name('editWishList');
+                      Route::patch('/updateWishList/{id}', 'update')->name('updateWishList');
+                      Route::delete('/deleteWishList/{id}', 'destroy')->name('deleteWishList');
                   });
          
         

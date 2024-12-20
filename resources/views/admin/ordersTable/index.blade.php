@@ -20,45 +20,48 @@
 
                 <div class="card">
                     <div class="card-body">
+                        <h5 class="card-title">Orders Table</h5>
 
-                        <h2 class="text-center mb-4">Orders Table</h2>
+                        <!-- Add Order Button -->
+                        <div class="mb-3 text-end">
+                            <button class="btn btn-success" onclick="location.href = '{{route('admin.orders.addOrder')}}'">
+                                <i class="bi bi-plus-circle"></i> Add Order
+                            </button>
+                        </div>
 
-                        <!-- Orders Table -->
+                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <h2 class="mb-4">Orders Table</h2>
+                            <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
+                                        <th>User Name</th>
+                                        <th>Order Total</th>
+                                        <th>Order Address</th>
+                                        <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($orders as $order)
                                     <tr>
-                                        <td>1</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john.doe@example.com</td>
-                                        <td>+1234567890</td>
-                                        <td>
-                                          <a href="{{route('viewhamza')}}" class="btn btn-light btn-sm" style="color: black;"><i class="bi bi-eye"></i> View</a>
-                                          </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jane</td>
-                                        <td>Smith</td>
-                                        <td>jane.smith@example.com</td>
-                                        <td>+0987654321</td>
-                                        <td>
-                                          <a href="{{route('viewhamza')}}" class="btn btn-light btn-sm" style="color: black;"><i class="bi bi-eye"></i> View</a>
-
+                                        <td>{{ $order->id }}</td>
+                                        <td>{{ $order->user->name }}</td> <!-- Assuming 'name' is the user name field -->
+                                        <td>{{ $order->order_total }}</td>
+                                        <td>{{ $order->order_address }}</td>
+                                        <td>{{ $order->order_status }}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ route('admin.orders.showOrder', $order->id) }}" class="btn btn-info"><i class="bi bi-eye"></i></a>
+                                            <a href="{{ route('admin.orders.editOrder', $order->id) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                            <form action="{{ route('admin.orders.deleteOrder', $order->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
-                                    <!-- Add more order rows dynamically if needed -->
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

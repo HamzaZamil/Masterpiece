@@ -29,6 +29,13 @@ class Item extends Model
      {
          return $this->belongsTo(Category::class, 'category_id');
      }
+
+     public function orders()
+     {
+         return $this->belongsToMany(Order::class, 'order_items')
+                     ->withPivot('quantity')
+                     ->withTimestamps();
+     }
  
      // Optional: Define any custom accessors or mutators (e.g., to format price)
  
@@ -39,4 +46,9 @@ class Item extends Model
      }
  
      // Define any other custom behavior (such as mutators or scopes)
+
+     public function wishlists()
+{
+    return $this->hasMany(Wishlist::class, 'item_id');
+}
 }

@@ -4,8 +4,9 @@
 
 <main id="main" class="main">
 
-  <div class="table">
-    <table class="table table-bordered">
+  <div class="d-flex justify-content-center"> <!-- Center the table -->
+    <div class="table-responsive" style="max-width: 90%;"> <!-- Responsive table within a max width -->
+      <table class="table table-bordered text-center"> <!-- Center text inside table cells -->
         <thead class="table-dark">
             <tr>
                 <th scope="col">Pet Name</th>
@@ -27,18 +28,15 @@
                 <td>{{ $pet['pet_age'] }}</td>
                 <td>{{ $pet['pet_weight'] }}</td>
                 <td>{{ $pet['pet_gender'] }}</td>
-                <td>{{ $pet['pet_image'] }}</td>
+                <td><img src="{{ $pet['pet_image'] }}" alt="Pet Image" style="width: 50px; height: 50px;"></td>
                 <td>{{ $pet['pet_medical_history'] }}</td>
-
-             
             </tr>
-        @endforeach
-            <!-- Add more user rows as needed -->
+            @endforeach
         </tbody>
-    </table>
-</div>
+      </table>
+    </div>
+  </div>
 
-
-</main><!-- End #main -->
+</main>
 
 @endsection
