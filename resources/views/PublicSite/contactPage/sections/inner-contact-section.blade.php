@@ -94,16 +94,9 @@
                                     <i class="fas fa-envelope"></i>
                                 </div>
                             </div>
-                            <div class="contact-form-subject">
-                                <select name="select" id="select">
-                                    <option value="select_subject">Select Subject*</option>
-                                    <option value="subject1">Subject</option>
-                                    <option value="subject2">Subject</option>
-                                    <option value="subject3">Subject</option>
-                                    <option value="subject4">Subject</option>
-                                    <option value="subject5">Subject</option>
-                                </select>
-                            </div>
+                            <div class="form-top-email">
+                                <input type="subject" name="subject" id="subject" placeholder="Enter Your Subject" required> 
+                            </div> <br>
                             <div class="contact-form-message">
                                 <textarea name="message" id="message" placeholder="Write a Message."></textarea>
                             </div>
@@ -116,13 +109,5 @@
             </div>
         </div>
     </div>
-    <div class="contact-map">
-        <div class="container-fluid p-0">
-            <div class="row">
-                <div class="col-lg-12 p-0">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12713663.749014985!2d98.91164829651575!3d4.09091805066755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3034d3975f6730af%3A0x745969328211cd8!2sMalaysia!5e1!3m2!1sen!2sbd!4v1697950982938!5m2!1sen!2sbd" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </section>

@@ -61,8 +61,8 @@
             <span>$76.00</span>
         </div>
         <ul class="btns_group ul_li">
-            <li><a href="cart.html" class="btn btn_primary text-uppercase">View Cart</a></li>
-            <li><a href="checkout.html" class="btn btn_border border_black text-uppercase">Checkout</a></li>
+            <li><a href="cart" class="btn btn_primary text-uppercase">View Cart</a></li>
+            <li><a href="checkout" class="btn btn_border border_black text-uppercase">Checkout</a></li>
         </ul>
     </div>
     <div class="cart_sidebar_overlay"></div>
