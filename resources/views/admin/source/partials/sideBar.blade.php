@@ -17,11 +17,11 @@
     </li>
     
 
-      <li class="nav-item ">
+      {{-- <li class="nav-item ">
         <a class="nav-link collapsed" href={{route('admin.pets.index')}}>
         <i class="bi bi-arrow-through-heart"></i><span>Pet</span>
         </a>
-      </li>
+      </li> --}}
 
       <li class="nav-item ">
         <a class="nav-link collapsed"  href={{route('admin.categories.index')}}>
@@ -29,11 +29,11 @@
         </a>
       </li><!-- End Tables Nav -->
 
-      <li class="nav-item ">
+      {{-- <li class="nav-item ">
         <a class="nav-link collapsed"  href={{route('admin.appointments.index')}}>
         <i class="bi bi-journals"></i><span>Appointment</span>
         </a>
-      </li><!-- End Charts Nav -->
+      </li><!-- End Charts Nav --> --}}
 
       <li class="nav-item ">
         <a class="nav-link collapsed"  href={{route('admin.items.index')}}>
@@ -47,12 +47,12 @@
         </a>
       </li><!-- End Charts Nav -->
 
-      <li class="nav-item ">
+      {{-- <li class="nav-item ">
         <a class="nav-link collapsed"  href={{route('admin.services.index')}}>
         <i class="bi bi-capsule"></i>
 <span>Service</span>
         </a>
-      </li><!-- End Charts Nav -->
+      </li><!-- End Charts Nav --> --}}
 
 
       <li class="nav-item ">

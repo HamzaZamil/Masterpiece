@@ -16,7 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id') // 'user_id' as a foreign key
                   ->constrained() // Defaults to 'users' table
                   ->onDelete('cascade'); // Cascade delete when a user is deleted
-            $table->boolean('state')->default(0); // 'state' with default value 0
+            $table->foreignId('item_id') // 'item_id' as a foreign key
+                  ->constrained('items') // Reference the 'items' table
+                  ->onDelete('cascade'); // Cascade delete when an item is deleted
+            $table->enum('state', [0,1])->default(0); // State field for wished/not wished
             $table->timestamps(); // Default timestamps
         });
     }
