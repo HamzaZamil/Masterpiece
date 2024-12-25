@@ -10,9 +10,9 @@
                 </div>
                 <div class="banner-inner-link wow fadeInRight" data-wow-delay=".3s">
                     <ul>
-                        <li><a href="index-2.html"><i class="fas fa-home"></i>Home</a></li>
+                        <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
                         <li class="separator"><i class="bi bi-arrow-right"></i></li>
-                        <li><a href="shop-details.html"><i class="far fa-hand-point-right"></i>Shop Details</a></li>
+                        <li><a href="shop-details"><i class="far fa-hand-point-right"></i>Shop Details</a></li>
                     </ul>
                 </div>
             </div>

@@ -42,20 +42,20 @@
                                 </thead>
                                 @foreach($categories as $category)
                                 <tbody>
-                                    <!-- Static Rows -->
                                     <tr>    
                                         <td>{{$category['category_name']}}</td>
                                         <td>{{$category['category_description']}}</td>
-                                        <td>{{$category['category_picture']}}</td>
+                                        <td><img src="{{asset('storage/categories/'. $category['category_picture'])}}" alt="" width="100px" height="100px"></td>
                                         
-                                        <td class="d-flex">
-                                            <a href="{{ route('admin.categories.editCategory', $category['category_id']) }}" class="btn btn-warning"><i class="bi bi-pencil-square "></i></a>
-                                            <form action="{{ route('admin.categories.deleteCategory', $category['category_id']) }}" method="POST">
+                                        <td class="d-flex justify-content-center align-items-center" style="height: 100%; text-align: center;">
+                                            <a href="{{ route('admin.categories.editCategory', $category['category_id']) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                            <form action="{{ route('admin.categories.deleteCategory', $category['category_id']) }}" method="POST" class="ms-2">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
                                             </form>
                                         </td>
+                                        
                                     </tr>
                                     <!-- Add more rows if needed -->
                                     @endforeach

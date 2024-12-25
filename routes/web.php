@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicSite\UserShopItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\CategoryController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\WishListController;
+use App\Http\Controllers\PublicSite\UserCartController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,14 +36,30 @@ Route::get('/', function(){
   return view('publicSite.homePage.index');
 });
 
+
+Route::get('/home', function(){
+  return view('homeContainer');
+})->name('homeContainer');
+
+
+Route::post('/cart/add', [UserCartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove', [UserCartController::class, 'removeFromCart'])->name('cart.remove');
+Route::get('/view-cart', [UserCartController::class, 'viewCart'])->name('cart.view');
+Route::post('/cart/update', [UserCartController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/clear', [UserCartController::class, 'clearCart'])->name('cart.clear');
+
+
+
+
 Route::get('/cart', function(){
   return view('publicSite.cart.cart');
 });
 Route::middleware(['role:user'])->group(function () {
   
-  Route::get('/shop', function(){
-    return view('publicSite.shop.shop');
-  });
+
+  Route::get('/shop', [UserShopItemController::class,'index'])->name('user.shop');
+
+  
 
   Route::get('/shopDetails', function(){
     return view('publicSite.shop-details.shop-details');
@@ -89,6 +107,7 @@ Route::get('/','index' )->name('index');
 Route::get('/addItem','create' )->name('addItem');
 Route::post('/storeItem', 'store')->name('storeItem');
 Route::get('/editItem/{id}/edit', 'edit')->name('editItem');
+Route::get('/showItem/{id}/show',action: 'show' )->name('showItem');
 Route::put('/updateItem/{id}', 'update')->name('updateItem');
 Route::delete('/deleteItem/{id}', 'destroy')->name('deleteItem');
 });
@@ -164,9 +183,6 @@ Route::controller(WishListController::class)->prefix('admin/WishList')->name('ad
   
 
 });
-
-
-
 
 
 Route::get('/whyChooseUs', function(){

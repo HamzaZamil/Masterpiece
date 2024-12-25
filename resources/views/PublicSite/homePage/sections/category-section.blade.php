@@ -15,9 +15,7 @@
                                 <div class="category-title">
                                     <h4>Cats</h4>
                                 </div>
-                                <div class="category-capecity">
-                                    <p>6 Products</p>
-                                </div>
+                
                             </div>
                         </a>
                     </div>
@@ -30,9 +28,7 @@
                                 <div class="category-title">
                                     <h4>Dogs</h4>
                                 </div>
-                                <div class="category-capecity">
-                                    <p>6 Products</p>
-                                </div>
+                        
                             </div>
                         </a>
                     </div>
@@ -45,9 +41,7 @@
                                 <div class="category-title">
                                     <h4>Birds</h4>
                                 </div>
-                                <div class="category-capecity">
-                                    <p>6 Products</p>
-                                </div>
+                                
                             </div>
                         </a>
                     </div>
@@ -60,9 +54,7 @@
                                 <div class="category-title">
                                     <h4>Fishes</h4>
                                 </div>
-                                <div class="category-capecity">
-                                    <p>6 Products</p>
-                                </div>
+                               
                             </div>
                         </a>
                     </div>

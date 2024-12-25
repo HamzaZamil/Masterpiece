@@ -9,17 +9,22 @@ class WishList extends Model
 {
     use HasFactory;
 
-    // Specify the table associated with the model
-    protected $table = 'wish_list';
+    // Table name
+    protected $table = 'wishlist';
 
-    // Specify the primary key if different from 'id'
+    // Primary Key
     protected $primaryKey = 'wishlist_id';
 
-    // Mass assignable attributes
-    protected $fillable = ['user_id', 'item_id', 'state'];
+    // Fillable fields
+    protected $fillable = [
+        'user_id',
+        'item_id',
+        'state',
+    ];
 
     /**
-     * Get the user associated with the wishlist.
+     * Relationship with the User model.
+     * A wishlist belongs to a user.
      */
     public function user()
     {
@@ -27,7 +32,8 @@ class WishList extends Model
     }
 
     /**
-     * Get the item associated with the wishlist.
+     * Relationship with the Item model.
+     * A wishlist belongs to an item.
      */
     public function item()
     {

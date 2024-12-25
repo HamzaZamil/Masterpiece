@@ -17,11 +17,38 @@
 
         <!-- Email Address -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('Email')" /> 
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div> <br>
+
+        <!-- Phone Number -->
+        <div class="mt-4">
+            <x-input-label for="phone_number" :value="__('Phone Number')" />
+            <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required />
+            <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>
 
+
+        <!-- Gender -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="gender" class="form-label">Gender</label>
+                <div>
+                    <input type="radio" id="male" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }} required>
+                    <label for="male">Male</label>
+        
+                    <input type="radio" id="female" name="gender" value="female" {{ old('gender') == 'female' ? 'checked' : '' }} required>
+                    <label for="female">Female</label>
+                </div>
+                @error('gender')
+                    <span style="color:red;">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+        
+
+        
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

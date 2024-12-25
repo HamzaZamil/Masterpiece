@@ -31,33 +31,43 @@ class ItemController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // Validate the incoming request data
-        $validated = $request->validate([
-            'category_id' => 'required|exists:categories,category_id', // Ensure category_id exists in categories table
-            'item_type' => 'required|in:cat,dog', // Only allow 'cat' or 'dog'
-            'item_name' => 'required|string|max:255', // Item name should be a string with max 255 characters
-            'item_description' => 'required|string', // Description is required and should be a string
-            'item_price' => 'required|numeric|min:0', // Price should be a non-negative number
-            'item_stock' => 'required|integer|min:0', // Stock should be a non-negative integer
-            'item_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // URL for the image (ensure it's a valid URL)
-        ]);
-    
-        // Create a new Item using the validated data
-        Item::create($validated);
-    
-        // Redirect the user with a success message
-        return redirect()->route('admin.items.index')->with('success', 'Item added successfully!');
+{
+    // Validate the incoming request data
+    $validated = $request->validate([
+        'category_id' => 'required|exists:categories,category_id', // Ensure category_id exists in categories table
+        'item_type' => 'required|in:cat,dog', // Only allow 'cat' or 'dog'
+        'item_name' => 'required|string|max:255', // Item name should be a string with max 255 characters
+        'item_description' => 'required|string', // Description is required and should be a string
+        'item_price' => 'required|numeric|min:0', // Price should be a non-negative number
+        'item_stock' => 'required|integer|min:0', // Stock should be a non-negative integer
+        'item_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validate image
+    ]);
+
+    // Handle file upload for item picture
+    if ($request->hasFile('item_picture')) {
+        $imagePath = $request->file('item_picture')->store('items', 'public');
+        $validated['item_picture'] = basename($imagePath); // Store only the filename
     }
+
+    // Create a new Item using the validated data
+    Item::create($validated);
+
+    // Redirect the user with a success message
+    return redirect()->route('admin.items.index')->with('success', 'Item added successfully!');
+}
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        $data = Item::all();
-        return view('admin.itemsTable.show', compact('data'));
-    }
+{
+    // Find the item by ID
+    $item = Item::findOrFail($id);
+
+    // Pass the single item to the view
+    return view('admin.itemsTable.show', compact('item'));
+}
 
     /**
      * Show the form for editing the specified resource.

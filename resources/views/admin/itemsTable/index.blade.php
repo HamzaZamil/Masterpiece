@@ -32,33 +32,36 @@
                             <table class="table table-striped table-hover">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>#</th>
                                         <th>Item Type</th>
                                         <th>Item Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Stock</th>
+                                        <th>Picture</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($items as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucfirst($item->item_type) }}</td>
                                             <td>{{ $item->item_name }}</td>
-                                            <td>{{ $item->item_description }}</td>
-                                            <td>${{ number_format($item->item_price, 2) }}</td>
-                                            <td>{{ $item->item_stock }}</td>
                                             <td>
+                                                @if($item->item_picture)
+                                                <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="Item Picture" width="100px" height="100px">
+                                                @else
+                                                    <span>No Image</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <!-- Show Button -->
+                                                <a href="{{ route('admin.items.showItem', $item->id) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                                
                                                 <!-- Edit Button -->
-                                                <a href="{{ route('admin.items.editItem', $item->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                                                <a href="{{ route('admin.items.editItem', $item->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
 
                                                 <!-- Delete Button -->
                                                 <form action="{{ route('admin.items.deleteItem', $item->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

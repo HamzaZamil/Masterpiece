@@ -41,7 +41,7 @@ public function orders()
 
 public function wishlists()
 {
-    return $this->hasMany(Wishlist::class, 'user_id');
+    return $this->hasMany(WishList::class, 'user_id');
 }
 
 
@@ -65,4 +65,14 @@ public function wishlists()
         'email_verified_at' => 'datetime',
     ];
 
-}
+    public function isAdmin()
+    {
+        return $this->role === 'vet';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
+
+}  

@@ -48,7 +48,7 @@ class Item extends Model
      // Define any other custom behavior (such as mutators or scopes)
 
      public function wishlists()
-{
-    return $this->hasMany(Wishlist::class, 'item_id');
-}
+     {
+         return $this->hasMany(WishList::class, 'item_id');
+     }
 }

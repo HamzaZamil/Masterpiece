@@ -48,6 +48,21 @@
     })
   }
 
+
+  /**
+ * Prevent Event Overlap for Wishlist and Profile Dropdown
+ */
+document.getElementById('wishlistButton').addEventListener('click', function (event) {
+  event.stopPropagation(); // Prevent the click event from propagating to parent elements
+  console.log('Wishlist button clicked'); // Debugging (optional)
+});
+
+document.getElementById('profileDropdown').addEventListener('click', function (event) {
+  event.stopPropagation(); // Prevent interference from other event listeners
+  console.log('Profile dropdown clicked'); // Debugging (optional)
+});
+
+
   /**
    * Search bar toggle
    */
@@ -316,4 +331,47 @@
     }, 200);
   }
 
-})();
+
+  // Add this right before the final })(); in your main.js
+  
+  /**
+   * Header Menu Button Fixes
+   */
+  document.addEventListener('DOMContentLoaded', function() {
+    // Profile dropdown handler
+    const profileDropdown = document.querySelector('.profile-btn');
+    const wishlistButton = document.querySelector('.wishlist-btn');
+    
+    if (profileDropdown) {
+      profileDropdown.addEventListener('click', function(event) {
+        event.stopPropagation();
+        if (wishlistButton) {
+          // Add your wishlist close logic here
+        }
+      });
+    }
+    
+    if (wishlistButton) {
+      wishlistButton.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const openDropdown = document.querySelector('.profile-btn[aria-expanded="true"]');
+        if (openDropdown) {
+          openDropdown.click();
+        }
+      });
+    }
+    
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.header-menu-btn')) {
+        const openDropdown = document.querySelector('.profile-btn[aria-expanded="true"]');
+        if (openDropdown) {
+          openDropdown.click();
+        }
+      }
+    });
+  });
+
+})(); // This is the end of your main IIFE
+
+
+

@@ -2,104 +2,118 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Wishlist;
+use App\Models\WishList;
 use App\Models\User;
 use App\Models\Item;
+use Illuminate\Http\Request;
 
 class WishListController extends Controller
 {
     /**
-     * Display a listing of all wishlist entries.
+     * Display a listing of the wishlist items.
      */
     public function index()
     {
-        $wishlists = Wishlist::with('user', 'item')->get(); // Load related user and item data
-        return view('admin.wishListTable.index', compact('wishlists'));
+        // Fetch all wishlist items with related user and item names
+        $wishlists = WishList::with('user', 'item')->get();
+
+        // Pass data to the index view
+        return view('admin.wishListsTable.index', compact('wishlists'));
     }
 
     /**
-     * Show the form for creating a new wishlist entry.
+     * Show the form for creating a new wishlist item.
      */
     public function create()
     {
-        $users = User::all(); // Retrieve all users
-        $items = Item::all(); // Retrieve all items
-        return view('admin.wishListTable.create', compact('users', 'items'));
+        // Fetch all users and items for the dropdowns
+        $users = User::all();
+        $items = Item::all();
+
+        // Pass data to the create view
+        return view('admin.wishListsTable.create', compact('users', 'items'));
     }
 
     /**
-     * Store a newly created wishlist entry in storage.
+     * Store a newly created wishlist item in storage.
      */
     public function store(Request $request)
     {
+        // Validate the incoming request
         $request->validate([
-            'user_id' => 'required|exists:users,id', // Ensure user_id exists in the users table
-            'item_id' => 'required|exists:items,id', // Ensure item_id exists in the items table
-            'state' => 'required|in:1,0', // Validate state (1 = wished, 0 = not wished)
+            'user_id' => 'required|exists:users,id',
+            'item_id' => 'required|exists:items,id',
+            'state' => 'required|in:1,0', // 1: Wished, 0: Not wished
         ]);
 
-        Wishlist::create([
-            'user_id' => $request->user_id,
-            'item_id' => $request->item_id,
-            'state' => $request->state,
-        ]);
+        // Create the wishlist entry
+        WishList::create($request->all());
 
-        return redirect()->route('admin.wishList.index')->with('success', 'Wishlist item added successfully!');
+        // Redirect to index with success message
+        return redirect()->route('admin.wishList.index')->with('success', 'Wishlist item created successfully.');
     }
 
     /**
-     * Display the specified wishlist entry.
+     * Display the specified wishlist item.
      */
     public function show($id)
     {
-        $wishlist = Wishlist::with('user', 'item')->findOrFail($id); // Load related user and item data
-        return view('admin.wishListTable.show', compact('wishlist'));
+        // Fetch the wishlist item by ID with its relationships
+        $wishlist = WishList::with('user', 'item')->findOrFail($id);
+
+        // Pass data to the show view
+        return view('admin.wishListsTable.show', compact('wishlist'));
     }
 
     /**
-     * Show the form for editing the specified wishlist entry.
+     * Show the form for editing the specified wishlist item.
      */
     public function edit($id)
     {
-        $wishlist = Wishlist::findOrFail($id);
-        $users = User::all(); // Retrieve all users
-        $items = Item::all(); // Retrieve all items
-        return view('admin.wishListTable.update', compact('wishlist', 'users', 'items'));
+        // Fetch the wishlist item by ID
+        $wishlist = WishList::findOrFail($id);
+
+        // Fetch all users and items for the dropdowns
+        $users = User::all();
+        $items = Item::all();
+
+        // Pass data to the edit view
+        return view('admin.wishListsTable.update', compact('wishlist', 'users', 'items'));
     }
 
     /**
-     * Update the specified wishlist entry in storage.
+     * Update the specified wishlist item in storage.
      */
     public function update(Request $request, $id)
 {
-    $request->validate([
-        'user_id' => 'exists:users,id',
-        'item_id' => 'exists:items,id',
-        'state' => 'required|in:1,0',
+    // Validate the incoming request to ensure the state matches the enum values
+    $validated = $request->validate([
+        'state' => 'required|in:in_wishlist,not_in_wishlist', // Ensure it matches enum values
     ]);
 
-    $wishlist = Wishlist::findOrFail($id);
 
-    // Update the wishlist entry
-    $wishlist->update([
-        // 'user_id' => $request->user_id,
-        // 'item_id' => $request->item_id,
-        'state' => $request->state,
-    ]);
+    // Find the wishlist entry
+    $wishlist = WishList::findOrFail($id);
 
-    return redirect()->route('admin.wishList.index')->with('success', 'Wishlist entry updated successfully!');
+    // Update the state
+    $wishlist->update(['state' => $validated['state']]);
+
+    // Redirect with a success message
+    return redirect()->route('admin.wishList.index')->with('success', 'Wishlist status updated successfully!');
 }
 
+    
 
     /**
-     * Remove the specified wishlist entry from storage.
+     * Remove the specified wishlist item from storage.
      */
     public function destroy($id)
     {
-        $wishlist = Wishlist::findOrFail($id);
+        // Find and delete the wishlist entry
+        $wishlist = WishList::findOrFail($id);
         $wishlist->delete();
 
-        return redirect()->route('admin.wishList.index')->with('success', 'Wishlist item removed successfully!');
+        // Redirect to index with success message
+        return redirect()->route('admin.wishListsTable.index')->with('success', 'Wishlist item deleted successfully.');
     }
 }

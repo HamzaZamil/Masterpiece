@@ -746,45 +746,45 @@
 
   // confirm box
 
-  function showConfirm(message, callback) {
-    let confirmBox = document.createElement("div");
-    confirmBox.classList.add("confirm-box");
+  // function showConfirm(message, callback) {
+  //   let confirmBox = document.createElement("div");
+  //   confirmBox.classList.add("confirm-box");
 
-    let messageBox = document.createElement("div");
-    messageBox.classList.add("message-box");
-    messageBox.textContent = message;
-    confirmBox.appendChild(messageBox);
+  //   let messageBox = document.createElement("div");
+  //   messageBox.classList.add("message-box");
+  //   messageBox.textContent = message;
+  //   confirmBox.appendChild(messageBox);
 
-    let buttonBox = document.createElement("div");
-    buttonBox.classList.add("button-box");
-    messageBox.appendChild(buttonBox);
+  //   let buttonBox = document.createElement("div");
+  //   buttonBox.classList.add("button-box");
+  //   messageBox.appendChild(buttonBox);
 
-    let yesButton = document.createElement("button");
-    yesButton.classList.add("yes-button");
-    yesButton.textContent = "Yes";
-    buttonBox.appendChild(yesButton);
-    yesButton.addEventListener("click", YesButtonClick);
+  //   let yesButton = document.createElement("button");
+  //   yesButton.classList.add("yes-button");
+  //   yesButton.textContent = "Yes";
+  //   buttonBox.appendChild(yesButton);
+  //   yesButton.addEventListener("click", YesButtonClick);
 
-    let noButton = document.createElement("button");
-    noButton.classList.add("no-button");
-    noButton.textContent = "No";
-    buttonBox.appendChild(noButton);
-    noButton.addEventListener("click", NoButtonClick);
+  //   let noButton = document.createElement("button");
+  //   noButton.classList.add("no-button");
+  //   noButton.textContent = "No";
+  //   buttonBox.appendChild(noButton);
+  //   noButton.addEventListener("click", NoButtonClick);
 
-    function removeConfirmBox() {
-      document.body.removeChild(confirmBox);
-    }
+  //   function removeConfirmBox() {
+  //     document.body.removeChild(confirmBox);
+  //   }
 
-    function YesButtonClick() {
-      callback(true);
-      removeConfirmBox();
-    }
+  //   function YesButtonClick() {
+  //     callback(true);
+  //     removeConfirmBox();
+  //   }
 
-    function NoButtonClick() {
-      callback(false);
-      removeConfirmBox();
-    }
+  //   function NoButtonClick() {
+  //     callback(false);
+  //     removeConfirmBox();
+  //   }
 
-    document.body.appendChild(confirmBox);
-  }
+  //   document.body.appendChild(confirmBox);
+  // }
 })(jQuery);

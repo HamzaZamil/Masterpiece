@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
             // Successful login
             $request->session()->regenerate();
 
-            return redirect()->route('admin.index');
+            return redirect()->route('homeContainer');
         }
 
         // If the credentials are incorrect, or the user is not found

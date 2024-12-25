@@ -17,7 +17,7 @@
                                     indoor cats some form humour online class.</p>
                             </div>
                             <div class="banner-btn cat-shop-btn">
-                                <a href="shop">Shop now!! <i class="bi bi-arrow-right-short"></i>
+                                <a href="/shop">Shop now!! <i class="bi bi-arrow-right-short"></i>
                                     <span></span></a>
                             </div>
                         </div>
