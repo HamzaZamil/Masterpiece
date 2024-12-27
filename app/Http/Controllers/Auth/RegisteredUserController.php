@@ -35,6 +35,9 @@ class RegisteredUserController extends Controller
             'last_name' => 'required|string|max:255',
             'gender' => 'required|in:male,female',
             'phone_number' => 'required|regex:/^[0-9]{10,15}$/', // Ensures only valid phone numbers
+            'address' => 'required|string|max:255', // Ensures only valid phone numbers
+            'street' => 'required|string|max:255', // Ensures only valid phone numbers
+            'city' => 'required|string|max:255', // Ensures only valid phone numbers
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
         ]);
@@ -44,6 +47,9 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'gender' => $request->gender, // Store the selected gender
             'phone_number' => $request->phone_number, // Storing phone number
+            'address' => $request->address, // Storing phone number
+            'street' => $request->street, // Storing phone number
+            'city' => $request->city, // Storing phone number
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -52,6 +58,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('homeContainer');
     }
 }

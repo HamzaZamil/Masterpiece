@@ -51,7 +51,7 @@
 
                         <div class="row justify-content-between gap-3">
                             <div class="col-auto cat-shop-btn">
-                                <button>Continue Shopping <i class="bi bi-arrow-right-short"></i> <span></span></button>
+                                <a href="/shop">Continue Shopping <i class="bi bi-arrow-right-short"></i> <span></span></a>
                             </div>
                             <div class="col-auto d-flex flex-wrap gap-3 cat-shop-btn">
                                 <button id="updateCartButton">Update Cart <i class="bi bi-arrow-right-short"></i> <span></span></button>
@@ -108,7 +108,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.message) {
-                alert(data.message);
+                toastr.success(data.message);
                 location.reload(); // Reload the page to reflect updated quantities
             }
         })
@@ -127,7 +127,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.message) {
-                alert(data.message);
+                toastr.success(data.message);
                 location.reload(); // Reload the page to reflect cleared cart
             }
         })

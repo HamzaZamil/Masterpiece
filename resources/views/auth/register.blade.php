@@ -30,6 +30,41 @@
         </div>
 
 
+        <!-- Address -->
+        <div class="mt-4">
+            <x-input-label for="address" :value="__('Address')" />
+            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
+            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+
+
+        <div class="mt-4">
+            <x-input-label for="street" :value="('street')" />
+            <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" />
+            <x-input-error :messages="$errors->get('street')" class="mt-2" />
+        </div>
+
+        <!-- City -->
+        <div class="col-md-6 mt-4">
+            <x-input-label for="city" :value="('city')" />
+            <select id="city" class="form-control block mt-1 w-full" name="city">
+                <option value="" disabled selected>{{ Auth::user()->city ?? 'Select your city' }}</option>
+                <option value="Amman">Amman</option>
+                <option value="Zarqa">Zarqa</option>
+                <option value="Irbid">Irbid</option>
+                <option value="Aqaba">Aqaba</option>
+                <option value="Madaba">Madaba</option>
+                <option value="Jerash">Jerash</option>
+                <option value="Ajloun">Ajloun</option>
+                <option value="Karak">Karak</option>
+                <option value="Tafilah">Tafilah</option>
+                <option value="Maan">Maan</option>
+                <option value="Balqa">Balqa</option>
+                <option value="Mafraq">Mafraq</option>
+            </select>
+            <x-input-error :messages="$errors->get('city')" class="mt-2" />
+        </div>
+
         <!-- Gender -->
         <div class="row mb-3">
             <div class="col-md-6">

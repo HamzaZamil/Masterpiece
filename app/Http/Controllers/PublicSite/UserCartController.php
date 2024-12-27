@@ -49,55 +49,81 @@ class UserCartController extends Controller
 
     // View cart items
     public function viewCart()
-{
-    $cart = session('cart', []); // Retrieve cart from session
-    return view('publicSite.cart.cart', compact('cart')); // Pass the cart to the view
-}
+    {
+        $cart = session('cart', []); // Retrieve cart from session
+        return view('publicSite.cart.cart', compact('cart')); // Pass the cart to the view
+    }
 
 
 
 
     // Remove item from cart
     public function removeFromCart(Request $request)
-{
-    $productId = $request->input('product_id');
+    {
+        $productId = $request->input('product_id');
 
-    // Retrieve the cart from the session
-    $cart = session()->get('cart', []);
+        // Retrieve the cart from the session
+        $cart = session()->get('cart', []);
 
-    // Remove the product if it exists in the cart
-    if (isset($cart[$productId])) {
-        unset($cart[$productId]);
-        session()->put('cart', $cart); // Update the session
-    }
-
-
-    return view('publicSite.cart.cart')->with('success', 'Item removed from cart successfully!');
-    
-}
-
-
-public function updateCart(Request $request)
-{
-    $quantities = $request->input('quantities', []);
-    $cart = session('cart', []);
-
-    foreach ($quantities as $productId => $quantity) {
-        if (isset($cart[$productId]) && $quantity > 0) {
-            $cart[$productId]['quantity'] = $quantity;
+        // Remove the product if it exists in the cart
+        if (isset($cart[$productId])) {
+            unset($cart[$productId]);
+            session()->put('cart', $cart); // Update the session
         }
+
+
+        return view('publicSite.cart.cart')->with('success', 'Item removed from cart successfully!');
+        
     }
 
-    session()->put('cart', $cart);
 
-    return response()->json(['message' => 'Cart updated successfully!']);
-}
+    public function updateCart(Request $request)
+    {
+        $quantities = $request->input('quantities', []);
+        $cart = session('cart', []);
 
-public function clearCart()
-{
-    session()->forget('cart');
-    return response()->json(['message' => 'Cart cleared successfully']);
-}
+        foreach ($quantities as $productId => $quantity) {
+            if (isset($cart[$productId]) && $quantity > 0) {
+                $cart[$productId]['quantity'] = $quantity;
+            }
+        }
+
+        session()->put('cart', $cart);
+
+        return response()->json(['message' => 'Cart updated successfully!']);
+    }
+
+    public function clearCart()
+    {
+        session()->forget('cart');
+        return response()->json(['message' => 'Cart cleared successfully']);
+    }
+
+    public function fetch()
+    {
+        $cart = session('cart', []);
+
+        if (empty($cart)) {
+            return response()->json(['cart' => [], 'message' => 'Cart is empty.']);
+        }
+
+        return response()->json(['cart' => $cart]);
+    }
+
+    public function remove(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $cart = session('cart', []);
+
+        if (isset($cart[$productId])) {
+            unset($cart[$productId]);
+            session(['cart' => $cart]);
+
+            return response()->json(['message' => 'Product removed from cart.']);
+        }
+
+        return response()->json(['message' => 'Product not found in cart.']);
+    }
 
 
 

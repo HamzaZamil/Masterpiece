@@ -47,6 +47,8 @@ Route::post('/cart/remove', [UserCartController::class, 'removeFromCart'])->name
 Route::get('/view-cart', [UserCartController::class, 'viewCart'])->name('cart.view');
 Route::post('/cart/update', [UserCartController::class, 'updateCart'])->name('cart.update');
 Route::post('/cart/clear', [UserCartController::class, 'clearCart'])->name('cart.clear');
+Route::get('/cart/fetch', [UserCartController::class, 'fetch'])->name('cart.fetch');
+Route::post('/side-cart/remove', [UserCartController::class, 'remove'])->name('side-cart.remove');
 
 
 
@@ -54,16 +56,19 @@ Route::post('/cart/clear', [UserCartController::class, 'clearCart'])->name('cart
 Route::get('/cart', function(){
   return view('publicSite.cart.cart');
 });
+
+
+Route::get('/shop', [UserShopItemController::class,'index'])->name('shop');
+Route::get('/shop/{id}', [UserShopItemController::class, 'show'])->name('shop.show');
+
+  
+
+Route::get('/shopDetails', function(){
+  return view('publicSite.shop-details.shop-details');
+});
+
 Route::middleware(['role:user'])->group(function () {
   
-
-  Route::get('/shop', [UserShopItemController::class,'index'])->name('user.shop');
-
-  
-
-  Route::get('/shopDetails', function(){
-    return view('publicSite.shop-details.shop-details');
-  });
 
 
 });

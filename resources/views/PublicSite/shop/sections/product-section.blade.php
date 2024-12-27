@@ -35,13 +35,13 @@
                                     </li>
                                     <li>
                                         <button 
-                                            class="product-action-btn" 
+                                            class="product-action-btn whiteListConfirm" 
                                             data-tooltip-text="Quick View" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#exampleProductModal{{ $item->id }}">
+                                            onclick="window.location.href='{{ route('shop.show', $item->id) }}'">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </li>
+                                    
                                     <li>
                                         <button class="product-action-btn cartConfirm" data-tooltip-text="Add to Cart" data-product-id="{{ $item->id }}">
                                             <i class="bi bi-cart4"></i>
@@ -58,66 +58,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal for each item -->
-                <div class="quickview-product-modal modal fade" id="exampleProductModal{{ $item->id }}">
-                    <div class="modal-dialog mw-100">
-                        <div class="container">
-                            <div class="modal-content">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <!-- Product Image Start -->
-                                        <div class="col-lg-6">
-                                            <div>
-                                                <img src="{{ asset('storage/items/' . $item->item_picture) }}" height="316px" width="316px" alt="{{ $item->item_name }}">
-                                            </div>
-                                        </div>
-
-                                        <!-- Product Content Start -->
-                                        <div class="col-lg-6">
-                                            <div class="single-product-content">
-                                                <h1 class="single-product-title">{{ $item->item_name }}</h1>
-                                                <div class="single-product-price">${{ number_format($item->item_price, 2) }}</div>
-                                                
-                                                <div class="single-product-text">
-                                                    <p>{{ $item->item_description }}</p>
-                                                </div>
-                                                
-                                                <div class="quantity">
-                                                    <div class="cart-plus-minus">
-                                                        <input id="quantity{{ $item->id }}" name="quantity" class="cart-plus-minus-box" value="1" type="text">
-                                                        <div class="dec ctnbutton">-</div>
-                                                        <div class="inc ctnbutton">+</div>
-                                                    </div>
-                                                </div>
-                                                <div class="add-to-cart-btn">
-                                                    <a href="#" class="add-to-cart-link" data-product-id="{{ $item->id }}">Add to Cart</a>
-                                                </div>
-                                                <ul class="single-product-meta">
-                                                    <li>
-                                                        <span class="label">Type:</span>
-                                                        <span class="value">{{ $item->item_type }}</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="label">Stock:</span>
-                                                        <span class="value">{{ $item->item_stock }}</span>
-                                                    </li>
-                                                    @if($item->category)
-                                                    <li>
-                                                        <span class="label">Category:</span>
-                                                        <span class="value">{{ $item->category->name }}</span>
-                                                    </li>
-                                                    @endif
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -125,6 +65,26 @@
 
     <!-- JavaScript for Quick Search -->
     <script>
+
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": true,
+    "onclick": null,
+    "showDuration": "200",
+    "hideDuration": "1000",
+    "timeOut": "2000", // Set the duration to 2 seconds
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
+
+
         document.getElementById('productSearch').addEventListener('input', function () {
             const searchValue = this.value.toLowerCase();
             const products = document.querySelectorAll('.product-item');
@@ -140,7 +100,7 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            const addToCartButtons = document.querySelectorAll('.add-to-cart-link, .cartConfirm');
+            const addToCartButtons = document.querySelectorAll('.cartConfirm');
 
             addToCartButtons.forEach(button => {
                 button.addEventListener('click', function (e) {
@@ -161,8 +121,11 @@
                     })
                         .then(response => response.json())
                         .then(data => {
-                            if (data.message) {
-                                alert(data.message);
+                            if (data.success) {
+                                toastr.success('Item added to cart successfully.');
+                                // Optionally, update the cart counter here
+                            } else {
+                                toastr.success(data.message || 'Error adding item to cart.');
                             }
                         })
                         .catch(error => {

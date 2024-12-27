@@ -6,35 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
-
 class UserShopItemController extends Controller
 {
+    /**
+     * Display a listing of the items in the shop.
+     */
     public function index(Request $request)
     {
         // Fetch all items with their categories
         $items = Item::with('category')->get();
-        
-        // Check if items exist before trying to get popupItem
-        if ($items->isEmpty()) {
-            $popupItem = null; // or create a default/empty item object
-        } else {
-            // Get the selected item for the popup, or default to the first item
-            $popupItem = $request->has('item_id') ? 
-                Item::find($request->item_id) : 
-                $items->first();
-        }
-        
-        return view('PublicSite.shop.shop', compact('items', 'popupItem'));
+
+        return view('PublicSite.shop..shop', compact('items'));
     }
 
-    
-    public function show(Item $item)
-{
-    $items = Item::with('category')->get();
-    $popupItem = $item;
-    
-    return view('public.shop', compact('items', 'popupItem'));
-}
-   
-    
+    /**
+     * Display the details of a specific item.
+     */
+    public function show($id)
+    {
+        // Fetch the specific item
+        $item = Item::with('category')->findOrFail($id);
+
+        // Pass the item to the shop-details-section view
+        return view('PublicSite.shop-details.shop-details', compact('item'));
+    }
 }
