@@ -19,6 +19,19 @@
         <div class="row">
             <div class="col-lg-12">
 
+
+                @if ($errors->all())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="text-danger">
+                        {{ $error }}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
                 <div class="card">
                     <div class="card-body">
                         <h2 class="text-center mb-4">Add New Item</h2>
@@ -43,8 +56,10 @@
                                 <label for="item_type" class="form-label">Item Type</label>
                                 <select name="item_type" id="item_type" class="form-control @error('item_type') is-invalid @enderror">
                                     <option value="">Select Item Type</option>
-                                    <option value="cat" {{ old('item_type') == 'cat' ? 'selected' : '' }}>Cat</option>
-                                    <option value="dog" {{ old('item_type') == 'dog' ? 'selected' : '' }}>Dog</option>
+                                    <option value="cat" {{ old('item_type') == 'Cat' ? 'selected' : '' }}>Cat</option>
+                                    <option value="dog" {{ old('item_type') == 'Dog' ? 'selected' : '' }}>Dog</option>
+                                    <option value="fish" {{ old('item_type') == 'Fish' ? 'selected' : '' }}>Fish</option>
+                                    <option value="bird" {{ old('item_type') == 'Bird' ? 'selected' : '' }}>Bird</option>
                                 </select>
                                 @error('item_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -116,3 +131,4 @@
 </main><!-- End #main -->
 
 @endsection
+

@@ -35,7 +35,7 @@ class ItemController extends Controller
     // Validate the incoming request data
     $validated = $request->validate([
         'category_id' => 'required|exists:categories,category_id', // Ensure category_id exists in categories table
-        'item_type' => 'required|in:cat,dog', // Only allow 'cat' or 'dog'
+        'item_type' => 'required|in:cat,dog,fish,bird', // Only allow 'cat' or 'dog'
         'item_name' => 'required|string|max:255', // Item name should be a string with max 255 characters
         'item_description' => 'required|string', // Description is required and should be a string
         'item_price' => 'required|numeric|min:0', // Price should be a non-negative number

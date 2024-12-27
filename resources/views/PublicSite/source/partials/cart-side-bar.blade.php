@@ -7,7 +7,7 @@
         </div>
         <div class="total_price text-uppercase">
             <span>Sub Total:</span>
-            <span id="cart-subtotal">$0.00</span>
+            <span id="cart-subtotal">JD 0.00</span>
         </div>
         <ul class="btns_group ul_li">
             <li><a href="/cart" class="btn btn_primary text-uppercase">View Cart</a></li>

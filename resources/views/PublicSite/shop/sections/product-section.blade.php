@@ -66,23 +66,14 @@
     <!-- JavaScript for Quick Search -->
     <script>
 
-toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": true,
-    "progressBar": true,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": true,
-    "onclick": null,
-    "showDuration": "200",
-    "hideDuration": "1000",
-    "timeOut": "2000", // Set the duration to 2 seconds
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-};
+        toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right", // Adjust as needed
+                timeOut: 2000, // Display duration: 2000ms (2 seconds)
+                extendedTimeOut: 1000, // Extra time when hovering
+            };
+
 
 
         document.getElementById('productSearch').addEventListener('input', function () {

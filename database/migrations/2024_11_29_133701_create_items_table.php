@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade'); // Foreign key to categories
-            $table->enum('item_type', ['cat', 'dog']);
+            $table->enum('item_type', ['Cat', 'Dog', 'Fish', 'Bird']);
             $table->string('item_name');
             $table->text('item_description');
             $table->decimal('item_price', 8, 2); // Assuming a max of 999,999.99 for item price

@@ -23,11 +23,30 @@ class UserShopItemController extends Controller
      * Display the details of a specific item.
      */
     public function show($id)
-    {
-        // Fetch the specific item
-        $item = Item::with('category')->findOrFail($id);
+{
+    // Fetch the specific item
+    $item = Item::with('category')->findOrFail($id);
 
-        // Pass the item to the shop-details-section view
-        return view('PublicSite.shop-details.shop-details', compact('item'));
-    }
+    // Fetch related products (e.g., random products excluding the current one)
+    $relatedProducts = Item::where('id', '!=', $id)
+                            ->inRandomOrder()
+                            ->take(4) // Adjust the number of related products as needed
+                            ->get();
+
+    // Pass the item and related products to the view
+    return view('PublicSite.shop-details.shop-details', compact('item', 'relatedProducts'));
 }
+
+
+    public function relatedProducts($itemId)
+    {
+        // Fetch 4 random items excluding the current item
+        $relatedItems = Item::where('id', '!=', $itemId)->inRandomOrder()->take(4)->get();
+
+        return response()->json($relatedItems);
+    }
+
+
+}
+
+

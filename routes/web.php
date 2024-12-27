@@ -14,6 +14,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\PublicSite\UserCartController;
+use App\Http\Controllers\PublicSite\UserHomePageController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,6 +50,7 @@ Route::post('/cart/update', [UserCartController::class, 'updateCart'])->name('ca
 Route::post('/cart/clear', [UserCartController::class, 'clearCart'])->name('cart.clear');
 Route::get('/cart/fetch', [UserCartController::class, 'fetch'])->name('cart.fetch');
 Route::post('/side-cart/remove', [UserCartController::class, 'remove'])->name('side-cart.remove');
+Route::get('/shop/related-products/{id}', [UserShopItemController::class, 'relatedProducts'])->name(name: 'shop.relatedProducts');
 
 
 

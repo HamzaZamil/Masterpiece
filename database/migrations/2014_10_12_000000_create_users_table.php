@@ -21,6 +21,8 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('phone_number', 15)->nullable();
             $table->text('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('street')->nullable();
             $table->enum('role', ['vet', 'user'])->default('user');
             $table->softDeletes('deleted_at')->default(null);
             $table->rememberToken();
