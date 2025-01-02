@@ -27,10 +27,10 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="shop-details-thumb">
-                                    <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="{{ $item->item_name }}">
-                                    <div class="add-to-favourite">
+                                    <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="{{ $item->item_name }}" width="400px" height="400px">
+                                    {{-- <div class="add-to-favourite">
                                         <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -49,8 +49,13 @@
 
                     <!-- Price Section -->
                     <div class="shop-details-price">
-                        <h5>${{ number_format($item->item_price, 2) }} </h5>
+                        <h5>Price: {{ number_format($item->item_price, 2) }} </h5>
                     </div>
+
+                    <!-- stock Section -->
+                    {{-- <div class="shop-details-price">
+                        <h5>Stock: <small>{{ ($item->item_stock) }}</small></h5>
+                    </div> --}}
 
                     <!-- Description -->
                     <div class="shop-details-desc">

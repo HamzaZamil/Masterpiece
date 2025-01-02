@@ -13,52 +13,45 @@
                 @if(empty($cart))
                     <p>Your cart is empty.</p>
                 @else
-                    <form id="updateCartForm">
-                        <table class="cart-table table table-bordered text-center align-middle mb-6 d-none d-md-table">
-                            <thead>
+                    <table class="cart-table table table-bordered text-center align-middle mb-6 d-none d-md-table">
+                        <thead>
+                            <tr>
+                                <th class="imag">Image</th>
+                                <th class="titl">Product</th>
+                                <th class="pric">Price</th>
+                                <th class="quantit">Quantity</th>
+                                <th class="tota">Total</th>
+                                <th class="remov">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-top-0">
+                            @foreach($cart as $productId => $item)
                                 <tr>
-                                    <th class="imag">Image</th>
-                                    <th class="titl">Product</th>
-                                    <th class="pric">Price</th>
-                                    <th class="quantit">Quantity</th>
-                                    <th class="tota">Total</th>
-                                    <th class="remov">Remove</th>
+                                    <td><img class="cart-thumb" src="{{ $item['image'] ?? asset('storage/items/default.jpg') }}" height="150px" width="250px" alt="Product Image"></td>
+                                    <td>{{ $item['item_name'] ?? 'Product ' . $productId }}</td>
+                                    <td>${{ number_format($item['price'] ?? 0, 2) }}</td>
+                                    <td>{{ $item['quantity'] }}</td> <!-- Display Quantity -->
+                                    <td>${{ number_format(($item['price'] ?? 0) * $item['quantity'], 2) }}</td>
+                                    <td>
+                                        <form action="{{ route('cart.remove') }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $productId }}">
+                                            <button type="submit" class="remove-btn"><i class="fas fa-times"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody class="border-top-0">
-                                @foreach($cart as $productId => $item)
-                                    <tr>
-                                        <td><img class="cart-thumb" src="{{ $item['image'] ?? asset('storage/items/default.jpg') }}" height="150px" width="250px" alt="Product Image"></td>
-                                        <td>{{ $item['item_name'] ?? 'Product ' . $productId }}</td>
-                                        <td>${{ number_format($item['price'] ?? 0, 2) }}</td>
-                                        <td>
-                                            <div class="product-quantity-count">
-                                                <input class="quantity" type="number" name="quantities[{{ $productId }}]" min="1" value="{{ $item['quantity'] }}">
-                                            </div>
-                                        </td>
-                                        <td>${{ number_format(($item['price'] ?? 0) * $item['quantity'], 2) }}</td>
-                                        <td>
-                                            <form action="{{ route('cart.remove') }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                <input type="hidden" name="product_id" value="{{ $productId }}">
-                                                <button type="submit" class="remove-btn"><i class="fas fa-times"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-                        <div class="row justify-content-between gap-3">
-                            <div class="col-auto cat-shop-btn">
-                                <a href="/shop">Continue Shopping <i class="bi bi-arrow-right-short"></i> <span></span></a>
-                            </div>
-                            <div class="col-auto d-flex flex-wrap gap-3 cat-shop-btn">
-                                <button id="updateCartButton">Update Cart <i class="bi bi-arrow-right-short"></i> <span></span></button>
-                                <button id="clearCartButton">Clear Cart <i class="bi bi-arrow-right-short"></i> <span></span></button>
-                            </div>
+                    <div class="row justify-content-between gap-3">
+                        <div class="col-auto cat-shop-btn">
+                            <a href="/shop">Continue Shopping <i class="bi bi-arrow-right-short"></i> <span></span></a>
                         </div>
-                    </form>
+                        <div class="col-auto d-flex flex-wrap gap-3 cat-shop-btn">
+                            <button id="clearCartButton">Clear Cart <i class="bi bi-arrow-right-short"></i> <span></span></button>
+                        </div>
+                    </div>
                 @endif
                 <!-- Cart Table For Tablet & Up Devices End -->
 
@@ -85,7 +78,6 @@
                         <a href="/checkout" class="show-alert btn btn-dark" style="width: 100%; padding: 10px; font-size: 1.2rem;">Proceed to checkout</a>
                     </div>
                 </div>
-                
                 <!-- Cart Totals End -->
             </div>
         </div>
@@ -94,29 +86,6 @@
 
 <!-- JavaScript for Cart Actions -->
 <script>
-    document.getElementById('updateCartButton').addEventListener('click', function () {
-        const form = document.getElementById('updateCartForm');
-        const formData = new FormData(form);
-
-        fetch("{{ route('cart.update') }}", {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                toastr.success(data.message);
-                location.reload(); // Reload the page to reflect updated quantities
-            }
-        })
-        .catch(error => {
-            console.error('Error updating cart:', error);
-        });
-    });
-
     document.getElementById('clearCartButton').addEventListener('click', function () {
         fetch("{{ route('cart.clear') }}", {
             method: 'POST',

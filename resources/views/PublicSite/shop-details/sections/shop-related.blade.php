@@ -1,105 +1,230 @@
+<html>
+{{-- <header>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" />
+     <style>
+         .toast {
+     opacity: 1 !important;
+     z-index: 9999; /* Ensure it appears above other elements */
+     }
+     .toast-success {
+         background-color: #1d9f3c !important; /* Light green */
+         color: #dfe0df !important; /* Dark green text */
+     }
+     </style>
+</header> --}}
 <section class="shop-related">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="cat-shop-section-title style2 wow fadeInUp">
-                    <h1>Related <span>Products</span></h1>
+                    <h1>More <span>Products</span></h1>
                 </div>
             </div>
         </div>
 
         <div class="product-box">
-            <div class="row" id="relatedProductsContainer">
-                <!-- Related products will be dynamically injected here -->
+            <div class="row">
+                @foreach($relatedProducts as $relatedItem)
+                <div class="col-lg-3 col-md-6 product-item">
+                    <div class="collection-single-box wow fadeInUp">
+                        <div class="collection-box-thumb">
+                            <img src="{{ asset('storage/items/' . $relatedItem->item_picture) }}" height="250px" width="300px" alt="{{ $relatedItem->item_name }}">
+                        </div>
+                        <div class="collection-box-content text-center">
+                            <div class="collection-icon">
+                                <ul>
+                                    <li>
+                                        <button 
+                                            class="product-action-btn wishlistBtn {{ in_array($relatedItem->id, $wishlistItems ?? []) ? 'in-wishlist' : '' }}" 
+                                            data-item-id="{{ $relatedItem->id }}" 
+                                            data-item-picture="{{ $relatedItem->item_picture }}" 
+                                            data-item-name="{{ $relatedItem->item_name }}" 
+                                            data-item-price="{{ $relatedItem->item_price }}" 
+                                            data-tooltip-text="Add to Wish list" onClick="toggleWishlist({{ $relatedItem->id }}, this)">
+                                            <i class="{{ in_array($relatedItem->id, $wishlistItems ?? []) ? 'fas' : 'far' }} fa-heart"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            class="product-action-btn" 
+                                            data-tooltip-text="Quick View" 
+                                            onclick="window.location.href='{{ route('shop.show', $relatedItem->id) }}'">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            class="product-action-btn cartConfirm" 
+                                            data-tooltip-text="Add to Cart" 
+                                            data-product-id="{{ $relatedItem->id }}">
+                                            <i class="bi bi-cart4"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="collection-box-title">
+                                <h6 class="product-name">{{ $relatedItem->item_name }}</h6>
+                            </div>
+                            <div class="collection-box-price">
+                                <h6>${{ number_format($relatedItem->item_price, 2) }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>
 </section>
 
 <script>
-
-toastr.options = {
-                closeButton: true,
-                progressBar: true,
-                positionClass: "toast-top-right", // Adjust as needed
-                timeOut: 2000, // Display duration: 2000ms (2 seconds)
-                extendedTimeOut: 1000, // Extra time when hovering
-            };
-
     document.addEventListener('DOMContentLoaded', function () {
-        const itemId = "{{ $item->id }}"; // Current item ID
+        const wishlistContainer = document.getElementById('wishlistContainer');
 
-        // Fetch related products
-        fetch(`/shop/related-products/${itemId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch related products.');
-                }
-                return response.json();
+        // Fetch and populate the wishlist sidebar
+        function fetchWishlist() {
+            fetch('{{ route('wishlist.fetch') }}', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
             })
-            .then(data => {
-                const container = document.getElementById('relatedProductsContainer');
-                container.innerHTML = ''; // Clear existing content
+                .then(response => response.json())
+                .then(data => {
+                    wishlistContainer.innerHTML = ''; // Clear the container
+                    if (data.success && data.items.length > 0) {
+                        data.items.forEach(wishlistItem => {
+                            const item = wishlistItem.item;
+                            addItemToSidebar(item, wishlistItem.item_id);
+                            // Pre-fill wishlist buttons
+                            document
+                                .querySelectorAll(`.wishlistBtn[data-item-id="${wishlistItem.item_id}"]`)
+                                .forEach(button => {
+                                    button.classList.add('in-wishlist');
+                                    button.innerHTML = '<i class="fas fa-heart"></i>';
+                                });
+                        });
+                    } else {
+                        wishlistContainer.innerHTML = `<p class="text-center">Your wishlist is empty.</p>`;
+                    }
+                })
+                .catch(error => console.error('Error fetching wishlist:', error));
+        }
 
-                if (data.length === 0) {
-                    container.innerHTML = '<p>No related products found.</p>';
-                    return;
+        // Add item to the sidebar dynamically
+        function addItemToSidebar(item, itemId) {
+            const wishlistHtml = `
+                <div class="white_item" id="wishlist-item-${itemId}">
+                    <div class="item_image">
+                        <img src="/storage/items/${item.item_picture}" alt="${item.item_name}">
+                    </div>
+                    <div class="item_content">
+                        <h4 class="item_title">${item.item_name}</h4>
+                        <span class="item_price">$${parseFloat(item.item_price).toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+            wishlistContainer.insertAdjacentHTML('beforeend', wishlistHtml);
+        }
+
+        // Remove item from the sidebar dynamically
+        function removeItemFromSidebar(itemId) {
+            const itemElement = document.getElementById(`wishlist-item-${itemId}`);
+            if (itemElement) {
+                itemElement.remove();
+            }
+        }
+
+        // Dynamically add/remove items from wishlist
+        // document.addEventListener('click', function (event) {
+        //     if (event.target.closest('.wishlistBtn')) {
+        //         const button = event.target.closest('.wishlistBtn');
+        //         const itemId = button.getAttribute('data-item-id');
+        //         const isInWishlist = button.classList.contains('in-wishlist');
+
+        //         const url = isInWishlist
+        //             ? '{{ route('wishlist.remove') }}'
+        //             : '{{ route('wishlist.add') }}';
+
+        //         fetch(url, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        //             },
+        //             body: JSON.stringify({ item_id: itemId }),
+        //         })
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 toastr.clear(); // Clear any previous toastr messages
+        //                 if (data.success) {
+        //                     if (isInWishlist) {
+        //                         button.classList.remove('in-wishlist');
+        //                         button.innerHTML = '<i class="far fa-heart"></i>';
+        //                         removeItemFromSidebar(itemId);
+        //                     } else {
+        //                         button.classList.add('in-wishlist');
+        //                         button.innerHTML = '<i class="fas fa-heart"></i>';
+        //                         const newItem = {
+        //                             item_picture: button.getAttribute('data-item-picture'),
+        //                             item_name: button.getAttribute('data-item-name'),
+        //                             item_price: button.getAttribute('data-item-price'),
+        //                         };
+        //                         addItemToSidebar(newItem, itemId);
+        //                     }
+        //                     toastr.success(data.message);
+        //                 } else {
+        //                     toastr.error(data.message);
+        //                 }
+        //             })
+        //             .catch(error => console.error('Error adding/removing item:', error));
+        //     }
+        // });
+
+        function toggleWishlist(itemId, button) {
+    const isInWishlist = button.classList.contains('in-wishlist');
+    const url = isInWishlist
+        ? '{{ route('wishlist.remove') }}'
+        : '{{ route('wishlist.add') }}';
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        },
+        body: JSON.stringify({ item_id: itemId }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            toastr.clear(); // Clear any previous toastr messages
+            if (data.success) {
+                if (isInWishlist) {
+                    button.classList.remove('in-wishlist');
+                    button.innerHTML = '<i class="far fa-heart"></i>';
+                    removeItemFromSidebar(itemId);
+                } else {
+                    button.classList.add('in-wishlist');
+                    button.innerHTML = '<i class="fas fa-heart"></i>';
+                    const newItem = {
+                        item_picture: button.getAttribute('data-item-picture'),
+                        item_name: button.getAttribute('data-item-name'),
+                        item_price: button.getAttribute('data-item-price'),
+                    };
+                    addItemToSidebar(newItem, itemId);
                 }
+                toastr.success(data.message);
+            } else {
+                toastr.error(data.message);
+            }
+        })
+        .catch(error => console.error('Error adding/removing item:', error));
+}
 
-                data.forEach(item => {
-                    container.innerHTML += `
-                        <div class="col-lg-3 col-md-6 product-item">
-                            <div class="collection-single-box wow fadeInUp">
-                                <div class="collection-box-thumb">
-                                    <img src="/storage/items/${item.item_picture}" height="300px" width="400px" alt="${item.item_name}">
-                                </div>
-                                <div class="collection-box-content text-center">
-                                    <div class="collection-icon">
-                                        <ul>
-                                            <li>
-                                                <button class="product-action-btn whiteListConfirm" data-tooltip-text="Add to Wish list">
-                                                    <i class="far fa-heart"></i>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button 
-                                                    class="product-action-btn whiteListConfirm" 
-                                                    data-tooltip-text="Quick View" 
-                                                    onclick="window.location.href='/shop/${item.id}'">
-                                                    <i class="bi bi-eye"></i>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="product-action-btn cartConfirm" data-tooltip-text="Add to Cart" data-product-id="${item.id}">
-                                                    <i class="bi bi-cart4"></i>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="collection-box-title">
-                                        <h6 class="product-name">${item.item_name}</h6>
-                                    </div>
-                                    <div class="collection-box-price">
-                                        <h6>$${parseFloat(item.item_price).toFixed(2)}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                // Rebind the Add to Cart functionality
-                bindAddToCartButtons();
-            })
-            .catch(error => {
-                console.error('Error fetching related products:', error);
-            });
-    });
-
-    // Add to Cart functionality
-    function bindAddToCartButtons() {
+        // Add to Cart functionality
         const addToCartButtons = document.querySelectorAll('.cartConfirm');
-
         addToCartButtons.forEach(button => {
             button.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -119,16 +244,22 @@ toastr.options = {
                 })
                     .then(response => response.json())
                     .then(data => {
+                        toastr.clear(); // Clear any previous toastr messages
                         if (data.success) {
-                            toastr.success('Item added to cart successfully.',);
+                            toastr.success('Item added to cart successfully.');
                         } else {
-                            toastr.error(data.message || 'Error adding item to cart.', '', { timeOut: 3000 });
+                            toastr.error(data.message || 'Error adding item to cart.');
                         }
                     })
                     .catch(error => {
                         console.error('Error adding to cart:', error);
+                        toastr.error('An unexpected error occurred.');
                     });
             });
         });
-    }
+
+        // Fetch initial wishlist state
+        fetchWishlist();
+    });
 </script>
+</html>

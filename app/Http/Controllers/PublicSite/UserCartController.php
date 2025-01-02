@@ -5,12 +5,17 @@ namespace App\Http\Controllers\PublicSite;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserCartController extends Controller
 {
     // Add item to cart
     public function addToCart(Request $request)
     {
+        if (!Auth::check()) {
+            return response()->json(['success' => false ,'message' => 'You must be logged in to add items to the cart!'], 403);
+        }
+
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity', 1);
     
@@ -40,12 +45,8 @@ class UserCartController extends Controller
         // Save the cart back to the session
         session()->put('cart', $cart);
     
-        return response()->json(['message' => 'Product added to cart!', 'cart' => $cart]);
+        return response()->json(['success'=> true, 'message' => 'Product added to cart!', 'cart' => $cart]);
     }
-    
-    
-
-
 
     // View cart items
     public function viewCart()
@@ -53,9 +54,6 @@ class UserCartController extends Controller
         $cart = session('cart', []); // Retrieve cart from session
         return view('publicSite.cart.cart', compact('cart')); // Pass the cart to the view
     }
-
-
-
 
     // Remove item from cart
     public function removeFromCart(Request $request)
@@ -71,11 +69,8 @@ class UserCartController extends Controller
             session()->put('cart', $cart); // Update the session
         }
 
-
         return view('publicSite.cart.cart')->with('success', 'Item removed from cart successfully!');
-        
     }
-
 
     public function updateCart(Request $request)
     {
@@ -124,7 +119,4 @@ class UserCartController extends Controller
 
         return response()->json(['message' => 'Product not found in cart.']);
     }
-
-
-
 }

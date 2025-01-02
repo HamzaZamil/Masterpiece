@@ -88,7 +88,7 @@ class ItemController extends Controller
     // Validate the request data
     $validatedData = $request->validate([
         'category_id' => 'required|exists:categories,category_id', // Ensure the category exists in the categories table
-        'item_type' => 'required|in:cat,dog', // Only 'cat' or 'dog' are valid item types
+        'item_type' => 'required|in:cat,dog,bird,fish', // Only 'cat' or 'dog' are valid item types
         'item_name' => 'required|string|max:255', // Item name should be a string and up to 255 characters
         'item_description' => 'required|string', // Item description should be a string
         'item_price' => 'required|numeric|min:0', // Price should be numeric and non-negative
@@ -99,8 +99,17 @@ class ItemController extends Controller
     // Find the item by ID or fail
     $item = Item::findOrFail($id);
 
+    if ($request->hasFile('item_picture')) {
+        $imagePath = $request->file('item_picture')->store('items', 'public');
+        $validatedData['item_picture'] = basename($imagePath); // Store only the filename
+    }
+
+
+
     // Update the item with the validated data
     $item->update($validatedData);
+
+
 
     // Redirect to the items index page with a success message
     return redirect()->route('admin.items.index')->with('success', 'Item updated successfully!');

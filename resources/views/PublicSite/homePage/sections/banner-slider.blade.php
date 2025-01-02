@@ -41,9 +41,9 @@
                 <div class="banner-shape3">
                     <img src={{asset("assets/user/images/shape/banner-shape3.png")}} alt="shape">
                 </div>
-                <div class="banner-shape4">
+                {{-- <div class="banner-shape4">
                     <img src={{asset("assets/user/images/shape/banner-shape4.png")}} alt="shape">
-                </div>
+                </div> --}}
                 <div class="banner-shape5">
                     <img src={{asset("assets/user/images/shape/banner-shape5.png")}} alt="shape">
                 </div>

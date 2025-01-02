@@ -15,6 +15,8 @@ use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\PublicSite\UserCartController;
 use App\Http\Controllers\PublicSite\UserHomePageController;
+use App\Http\Controllers\PublicSite\UserProfileController;
+use App\Http\Controllers\PublicSite\UserCheckoutController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,9 +35,21 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
 
-Route::get('/', function(){
-  return view('publicSite.homePage.index');
-});
+    
+
+
+Route::get('/', [UserHomePageController::class, 'index'])->name('the_home');
+Route::get('/first-items', [UserHomePageController::class, 'firstEightItems'])->name('first.items.page');
+
+
+Route::get('/user/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+Route::post('/user/profile/update', [UserProfileController::class, 'updateProfile'])->name('user.profile.update');
+Route::post('/user/profile/change-password', [UserProfileController::class, 'changePassword'])->name('user.profile.change-password');
+
+
+Route::post('/checkout/store', [UserCheckoutController::class, 'store'])->name('checkout.store');
+
+
 
 
 Route::get('/home', function(){
@@ -46,12 +60,17 @@ Route::get('/home', function(){
 Route::post('/cart/add', [UserCartController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/remove', [UserCartController::class, 'removeFromCart'])->name('cart.remove');
 Route::get('/view-cart', [UserCartController::class, 'viewCart'])->name('cart.view');
-Route::post('/cart/update', [UserCartController::class, 'updateCart'])->name('cart.update');
+// Route::post('/cart/update', [UserCartController::class, 'updateCart'])->name('cart.update');
 Route::post('/cart/clear', [UserCartController::class, 'clearCart'])->name('cart.clear');
 Route::get('/cart/fetch', [UserCartController::class, 'fetch'])->name('cart.fetch');
 Route::post('/side-cart/remove', [UserCartController::class, 'remove'])->name('side-cart.remove');
 Route::get('/shop/related-products/{id}', [UserShopItemController::class, 'relatedProducts'])->name(name: 'shop.relatedProducts');
+Route::get('/shop/load-more', [UserShopItemController::class, 'loadMoreItems'])->name('shop.load-more');
 
+
+Route::post('/wishlist/add', [UserShopItemController::class, 'addToWishList'])->name('wishlist.add');
+Route::post('/wishlist/remove', [UserShopItemController::class, 'removeFromWishList'])->name('wishlist.remove');
+Route::get('/wishlist/fetch', [UserShopItemController::class, 'fetchWishList'])->name('wishlist.fetch');
 
 
 
@@ -93,7 +112,7 @@ Route::get('/contactUsDetails','show' )->name('show');
 
 Route::get('/admin', function () {
 return view('admin.index');
-})->name(''); 
+})->name('admin.home'); 
 
 Route::get('/admin', function () {
  return view('admin.index');

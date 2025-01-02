@@ -44,7 +44,7 @@
                                         <td>{{ $item->item_stock }}</td>
                                         <td>
                                             @if($item->item_picture)
-                                                <img src="{{ asset('storage/' . $item->item_picture) }}" alt="Item Picture" class="img-thumbnail" style="width: 150px; height: 150px;">
+                                                <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="Item Picture" class="img-thumbnail" style="width: 150px; height: 150px;">
                                             @else
                                                 <span>No Image</span>
                                             @endif

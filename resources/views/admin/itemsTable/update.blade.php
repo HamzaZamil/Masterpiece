@@ -45,6 +45,8 @@
                                     <option value="">Select Item Type</option>
                                     <option value="cat" {{ old('item_type', $item->item_type) == 'cat' ? 'selected' : '' }}>Cat</option>
                                     <option value="dog" {{ old('item_type', $item->item_type) == 'dog' ? 'selected' : '' }}>Dog</option>
+                                    <option value="bird" {{ old('item_type', $item->item_type) == 'bird' ? 'selected' : '' }}>Bird</option>
+                                    <option value="fish" {{ old('item_type', $item->item_type) == 'fish' ? 'selected' : '' }}>Fish</option>
                                 </select>
                                 @error('item_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -105,7 +107,7 @@
                                 @enderror
                                 @if($item->item_image_url)
                                     <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $item->item_image_url) }}" alt="Item Image" class="img-thumbnail" style="width: 100px;">
+                                        <img src="{{ asset('storage/items' . $item->item_image_url) }}" alt="Item Image" class="img-thumbnail" style="width: 100px;">
                                     </div>
                                 @endif
                             </div>

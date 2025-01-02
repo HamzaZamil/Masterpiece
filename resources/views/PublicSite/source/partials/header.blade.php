@@ -9,9 +9,9 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="description" content="Cat Shop">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Pet Shop - Cat Store & Pet Food Shop HTML5 Template</title>
+	<title>Pettie</title>
 	<!-- Favicon -->
-	<link rel="icon" type="image/png" sizes="200x200" href="assets/images/favicon/fav-icon.png">
+	<link rel="icon" type="image/png" sizes="200x200" href={{ asset("assets/user/images/favicon/fav-icon.png") }}>
 	<!-- Bootstrap CSS Link -->
 	<link rel="stylesheet" href={{asset("assets/user/css/bootstrap.min.css")}} type="text/css" media="all">
 	<!-- Animate CSS Link -->
@@ -23,13 +23,13 @@
 	<!-- Font Flaticon CSS Link -->
 	<link rel="stylesheet" href={{asset("assets/user/css/flaticon.css")}} type="text/css" media="all">
 	<!-- Flaticon CDN Link -->
-	<link rel='stylesheet' href='../../../cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css'>
+	<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css">
 	<!-- Custom Default CSS Link -->
 	<link rel="stylesheet" href={{asset("assets/user/css/custom-default.css")}} type="text/css" media="all">
 	<!-- Meanmenu CSS Link -->
 	<link rel="stylesheet" href={{asset("assets/user/css/meanmenu.min.css")}} type="text/css" media="all">
 	<!-- Venobox CSS Link -->
-	<link rel="stylesheet" href="venobox/venobox.css" type="text/css" media="all">
+	{{-- <link rel="stylesheet" href={{asset("assets/venobox/venobox.css")}} type="text/css" media="all"> --}}
 	<!-- Bootstrap Icons Link -->
 	<link rel="stylesheet" href={{asset("assets/user/css/bootstrap-icons.css")}} type="text/css" media="all">
 	<!-- Slick CSS Link -->
@@ -38,6 +38,12 @@
 	<link rel="stylesheet" href={{asset("assets/user/css/style.css")}} type="text/css" media="all">
 	<!-- Responsive CSS Link -->
 	<link rel="stylesheet" href={{asset("assets/user/css/responsive.css")}} type="text/css" media="all">
+	<!-- Responsive CSS Link -->
+	<link rel="stylesheet" href={{asset("assets/venobox/venobox.css")}}>
 
+	{{-- <link rel="stylesheet" href={{asset("assets/venobox/close.gif")}}>
+	<link rel="stylesheet" href={{asset("assets/venobox/next.gif")}}>
+	<link rel="stylesheet" href={{asset("assets/venobox/prev.gif")}}>
+	<link rel="stylesheet" href={{asset("assets/venobox/preload-circle.gif")}}> --}}
 
 </head>

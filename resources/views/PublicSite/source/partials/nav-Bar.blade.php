@@ -1,45 +1,46 @@
 
-
-
-<header class="header-manu-section" id="header-sticky">
+<header class="header-manu-section" id="header-sticky" style="padding: 10px 0px 0px 0px; background-color: #fff;">
     <div class="container">
         <div class="row align-items-center">
+            <!-- Logo Section -->
             <div class="col-lg-2">
-                <div class="Cat Shop-logo">
-                    <a href="index-2.html" title="Cat Master">
-                        <img src="assets/images/main-thumb/cat-logo.png" alt="logo">
+                <div class="cat-shop-logo" style="text-align: center;">
+                    <a href="/" title="Cat Master">
+                        <img src="{{ asset('assets/img/pettieLogo.png') }}" alt="logo" style="height: 80px; width: auto;">
                     </a>
                 </div>
             </div>
+
+            <!-- Navigation Menu -->
             <div class="col-lg-5">
-                <nav class="header-menu">
-                    <ul>
-                        <li><a href="/" class="active">Home</a></li>
-                        <li><a href="/shop">Shop</a></li>
-                        <li><a href="whyChooseUs">Why Choose Us</a></li>
-                        <li><a href="contactPage">Contact</a></li>
+                <nav class="header-menu d-none d-lg-block">
+                    <ul >
+                        <li><a href="/" style="color: #b17457; text-decoration: none;">Home</a></li>
+                        <li><a href="/shop" style="text-decoration: none;">Shop</a></li>
+                        <li><a href="/whyChooseUs" style="text-decoration: none;">Why Choose Us</a></li>
+                        <li><a href="/contactPage" style="text-decoration: none;">Contact</a></li>
                     </ul>
                 </nav>
             </div>
+
+            <!-- Right Menu Section -->
             <div class="col-lg-5">
-                <div class="header-menu-right">
+                <div class="header-menu-right" style="text-align: right;">
                     <div class="header-menu-btn">
-                        <ul>
+                        <ul style="display: inline-flex; list-style: none; gap: 15px; padding: 0; margin: 0;">
                             <!-- Cart Button -->
                             <li>
-                                <button class="cart_btn headers-button" id="open-cart-btn" type="button"  >
+                                <button class="cart_btn headers-button" id="open-cart-btn" type="button" style="background: none; border: none; cursor: pointer;">
                                     <i class="bi bi-cart3"></i>
                                     <small class="cart_counter"></small>
                                 </button>
                             </li>
-
-                            <!-- Wishlist Button (moved beside the cart) -->
+                            <!-- Wishlist Button -->
                             <li>
-                                <button class="white_btn headers-button wishlist-btn" type="button" id="wishlistButton">
+                                <button class="white_btn headers-button wishlist-btn" type="button" id="wishlistButton" style="background: none; border: none; cursor: pointer;">
                                     <i class="far fa-heart"></i>
                                 </button>
                             </li>
-
                             <!-- Profile Dropdown -->
                             <li>
                                 <div class="dropdown">
@@ -48,7 +49,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="newProfileDropdown">
                                         @if(Auth::check())
-                                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                            <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
                                             <li>
                                                 <form method="POST" action="{{ route('logout') }}">
                                                     @csrf
@@ -62,11 +63,27 @@
                                     </ul>
                                 </div>
                             </li>
-                            
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mobile Menu Area -->
+    <div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none">
+        <div class="mobile-menu">
+            <nav class="header-menu">
+                <ul class="nav_scroll">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop">Shop</a></li>
+                    <li><a href="/whyChooseUs">Why Choose Us</a></li>
+                    <li><a href="/contactPage">Contact</a></li>
+                </ul>
+            </nav>
+            
         </div>
     </div>
     <script>
@@ -210,4 +227,5 @@
 });
 
     </script>
+ 
 </header>

@@ -101,7 +101,7 @@
                                 <textarea name="message" id="message" placeholder="Write a Message."></textarea>
                             </div>
                             <div class="contact-form-btn cat-shop-btn">
-                                <button type="submit">Sent Message Now <i class="bi bi-arrow-right-short"></i> <span></span></button>
+                                <button type="submit">Send you message <i class="bi bi-arrow-right-short"></i> <span></span></button>
                             </div>
                         </form>
                     </div>

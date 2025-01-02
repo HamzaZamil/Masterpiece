@@ -13,7 +13,7 @@
 	<!-- Bootstrap JS CDN -->
 	<script src={{asset("assets/user/js/bootstrap.min.js")}}></script>
 	<!-- CounterUp JS CDN -->
-	<script src={{asset("assets/user/js/jquery.counterup.min.js")}}></script>
+	<script src={{asset("assets/user/js/jquery.counterup.js")}}></script>
 	<!-- WayPoints JS CDN -->
 	<script src={{asset("assets/user/js/waypoints.min.js")}}></script>
 	<!-- WOW JS CDN -->
@@ -21,11 +21,11 @@
 	<!-- Imageloaded JS CDN -->
 	<script src={{asset("assets/user/js/imagesloaded.pkgd.min.js")}}></script>
 	<!-- Venubox JS CDN -->
-	<script src={{asset("venobox/user/venobox.js")}}></script>
+	<script src={{asset("assets/venobox/venobox.js")}}></script>
 	<!-- Animated JS CDN -->
 	<script src={{asset("assets/user/js/animated-text.js")}}></script>
 	<!-- VenuBox JS CDN -->
-	<script src={{asset("venobox/user/venobox.min.js")}}></script>
+	<script src={{asset("assets/venobox/venobox.min.js")}}></script>
 	<!-- PKG JS CDN -->
 	<script src={{asset("assets/user/js/isotope.pkgd.min.js")}}></script>
 	<!-- Ajax JS Link -->
@@ -40,3 +40,4 @@
 	<script src={{asset("assets/user/js/custom.js")}}></script>
 	<!-- Slick Js CDN -->
 	<script src={{asset("assets/user/js/slick.min.js")}}></script>
+  

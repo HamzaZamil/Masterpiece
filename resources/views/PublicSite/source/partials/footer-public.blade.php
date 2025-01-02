@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 wow fadeInUp">
                 <div class="footer-logo">
-                    <a href="index-2.html" title="Cat Master"><img src={{asset("assets/images/main-thumb/cat-logo.png")}}
+                    <a href="/" title="Cat Master"><img src="{{ asset('assets/img/pettieLogo.png') }}"  style="height: 100px; width: auto;"
                             alt="logo"></a>
                 </div>
                 <div class="footer-desc">
@@ -39,7 +39,7 @@
                     <ul>
                         <li><a href="#"><i class="bi bi-arrow-right"></i>My Profile</a></li>
                         <li><a href="#"><i class="bi bi-arrow-right"></i>My Order History</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right"></i>My White List</a></li>
+                        <li><a href="#"><i class="bi bi-arrow-right"></i>My Wish List</a></li>
                     </ul>
                 </div>
             </div>
@@ -49,10 +49,10 @@
                         <h5>Contact Us</h5>
                     </div>
                     <div class="footer-contact-item">
-                        <i class="fas fa-phone"></i> <a href="#"> Phone:0799599201</a>
+                        <i class="fas fa-phone"></i> <a href="contactPage"> Phone:0799599201</a>
                     </div>
                     <div class="footer-contact-item">
-                        <i class="fas fa-envelope"></i> <a href="#"> Email: info@pettie.com</a>
+                        <i class="fas fa-envelope"></i> <a href="contactPage"> Email: info@pettie.com</a>
                     </div>
                     <div class="footer-contact-item">
                         <div><i class="fas fa-map-marker-alt"></i> </div>
@@ -70,14 +70,7 @@
                         <p>Copyright 2024 @ Hamza Zamil. All rights reserved.</p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="footer-bottom-link wow fadeInLeft">
-                        <ul>
-                            <li><a href="#">Privacy</a></li>
-                            <li><a href="#">Tearms</a></li>
-                        </ul>
-                    </div>
-                </div>
+               
             </div>
         </div>
     </div>
