@@ -23,8 +23,9 @@
                     <div class="card-body">
                         <h2 class="text-center mb-4">Item Details</h2>
 
+                        <!-- Responsive and Searchable Table -->
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="itemDetailsTable">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Item Type</th>
@@ -65,5 +66,32 @@
     </section>
 
 </main><!-- End #main -->
+
+<!-- Add DataTables dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
+
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable for the item details
+        $('#itemDetailsTable').DataTable({
+            paging: false, // Disable pagination for single item details
+            searching: false, // Disable search since this is a single item
+            responsive: true,
+            info: false, // Disable info section
+            order: [[0, 'asc']], // Default order by the first column (Item Type)
+            language: {
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            }
+        });
+    });
+</script>
 
 @endsection

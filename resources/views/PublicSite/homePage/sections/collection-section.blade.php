@@ -2,19 +2,19 @@
     <section class="collection-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="cat-shop-section-title wow fadeInUp">
+                <div class="col-lg-12" id="new/arrivals">
+                    <div class="cat-shop-section-title wow fadeInUp" >
                         <h1>New <span>Arrivals</span></h1>
                     </div>
                 </div>
             </div>
-            <div class="collection-box">
+            <div class="collection-box" >
                 <div class="row">
                     @foreach($latestItems as $item)
                     <div class="col-lg-3 col-md-6 product-item">
                         <div class="collection-single-box wow fadeInUp">
                             <div class="collection-box-thumb">
-                                <img src="{{ asset('storage/items/' . $item->item_picture) }}" height="250px" width="300px" alt="{{ $item->item_name }}">
+                                <img src="{{ asset('storage/items/' . $item->item_picture) }}" height="250px" width="300px" alt="{{ $item->item_name }}" style="object-fit: contain">
                             </div>
                             <div class="collection-box-content">
                                 <div class="collection-icon">
@@ -52,7 +52,7 @@
                                     <h6 class="product-name">{{ $item->item_name }}</h6>
                                 </div>
                                 <div class="collection-box-price">
-                                    <h6>${{ number_format($item->item_price, 2) }}</h6>
+                                    <h6>{{ number_format($item->item_price, 2) }} JD </h6>
                                 </div>
                             </div>
                         </div>
@@ -61,8 +61,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- JavaScript -->
         
     </section>
 </html>

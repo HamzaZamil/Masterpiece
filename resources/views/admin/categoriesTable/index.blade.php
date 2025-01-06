@@ -29,9 +29,9 @@
                             </button>
                         </div>
 
-                        <!-- Table with stripped rows -->
-                        <div class="table">
-                            <table class="table table-bordered">
+                        <!-- Responsive and Searchable Table -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="categoriesTable">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>Category Name</th>
@@ -40,13 +40,14 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                @foreach($categories as $category)
                                 <tbody>
+                                    @foreach($categories as $category)
                                     <tr>    
                                         <td>{{$category['category_name']}}</td>
                                         <td>{{$category['category_description']}}</td>
-                                        <td><img src="{{asset('storage/categories/'. $category['category_picture'])}}" alt="" width="100px" height="100px"></td>
-                                        
+                                        <td>
+                                            <img src="{{asset('storage/categories/'. $category['category_picture'])}}" alt="" width="100px" height="100px">
+                                        </td>
                                         <td class="d-flex justify-content-center align-items-center" style="height: 100%; text-align: center;">
                                             <a href="{{ route('admin.categories.editCategory', $category['category_id']) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                                             <form action="{{ route('admin.categories.deleteCategory', $category['category_id']) }}" method="POST" class="ms-2">
@@ -55,12 +56,9 @@
                                                 <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
                                             </form>
                                         </td>
-                                        
                                     </tr>
-                                    <!-- Add more rows if needed -->
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
 
@@ -73,5 +71,33 @@
 
 </main><!-- End #main -->
 
+<!-- Add DataTables dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
+
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable with pagination and search enabled
+        $('#categoriesTable').DataTable({
+            paging: true,
+            searching: true,
+            responsive: true,
+            order: [[0, 'asc']], // Default order by the first column (Category Name)
+            language: {
+                search: "Search:",
+                lengthMenu: "Show _MENU_ entries",
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            }
+        });
+    });
+</script>
+
 @endsection
-  

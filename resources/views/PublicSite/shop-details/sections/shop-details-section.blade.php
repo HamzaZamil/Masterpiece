@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="shop-details-thumb">
-                                    <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="{{ $item->item_name }}" width="400px" height="400px">
+                                    <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="{{ $item->item_name }}" width="400px" style="object-fit: contain;"  height="400px">
                                     {{-- <div class="add-to-favourite">
                                         <a href="#"><i class="far fa-heart"></i></a>
                                     </div> --}}
@@ -49,7 +49,7 @@
 
                     <!-- Price Section -->
                     <div class="shop-details-price">
-                        <h5>Price: {{ number_format($item->item_price, 2) }} </h5>
+                        <h5>Price: {{ number_format($item->item_price, 2) }} JD</h5>
                     </div>
 
                     <!-- stock Section -->
@@ -121,7 +121,7 @@
         }
     });
 
-    // Ensure only one event listener is added for increment button
+    // Ensure only one event listener is added or infcrement button
     incrementButton.addEventListener("click", function (e) {
         e.preventDefault();
         const currentValue = parseInt(quantityInput.value) || 1;
@@ -149,7 +149,7 @@
                                 toastr.success('Item added to cart successfully.');
                                 // Optionally, update the cart counter here
                             } else {
-                                toastr.success(data.message || 'Error adding item to cart.');
+                                toastr.error(data.message || 'Error adding item to cart.');
                             }
                         })
                         .catch(error => {

@@ -55,12 +55,14 @@
       </li><!-- End Charts Nav --> --}}
 
 
-      <li class="nav-item ">
+      {{-- <li class="nav-item ">
         <a class="nav-link collapsed"  href={{route('admin.wishList.index')}}>
           <i class="bi bi-heart"></i>
 <span>Wish List</span>
         </a>
-      </li><!-- End Charts Nav -->
+      </li>
+       --}}
+      <!-- End Charts Nav -->
 
 
     </ul>

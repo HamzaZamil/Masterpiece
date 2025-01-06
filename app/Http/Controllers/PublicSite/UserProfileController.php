@@ -10,7 +10,8 @@ class UserProfileController extends Controller
     public function show()
 {
     $user = auth()->user(); // Get authenticated user
-    return view('PublicSite.userProfile.userProfile', compact('user'));
+    $orders = $user->orders()->with('items')->get(); // Fetch user orders with items
+    return view('PublicSite.userProfile.userProfile', compact('user', 'orders'));
 }
 
 public function updateProfile(Request $request)

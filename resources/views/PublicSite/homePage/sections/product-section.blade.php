@@ -7,13 +7,13 @@
                 </div>
             </div>
         </div>
-        <div class="product-box">
+        <div class="product-box" id="best/seller">
             <div class="row">
                 @foreach($firstItems as $item)
                 <div class="col-lg-3 col-md-6 product-item">
                     <div class="collection-single-box wow fadeInUp">
                         <div class="collection-box-thumb">
-                            <img src="{{ asset('storage/items/' . $item->item_picture) }}" height="250px" width="300px" alt="{{ $item->item_name }}">
+                            <img src="{{ asset('storage/items/' . $item->item_picture) }}" height="250px" width="300px" alt="{{ $item->item_name }}" style="object-fit: contain">
                         </div>
                         <div class="collection-box-content">
                             <div class="collection-icon">
@@ -51,7 +51,7 @@
                                 <h6 class="product-name">{{ $item->item_name }}</h6>
                             </div>
                             <div class="collection-box-price">
-                                <h6>${{ number_format($item->item_price, 2) }}</h6>
+                                <h6>{{ number_format($item->item_price, 2) }} JD</h6>
                             </div>
                         </div>
                     </div>
@@ -115,48 +115,7 @@ toastr.options = {
                     });
             }
 
-            // Wishlist Button Handling
-            // document.addEventListener('click', function (event) {
-            //     if (event.target.closest('.wishlistBtn')) {
-            //         const button = event.target.closest('.wishlistBtn');
-            //         const itemId = button.getAttribute('data-item-id');
-            //         const isInWishlist = button.classList.contains('in-wishlist');
-
-            //         const url = isInWishlist
-            //             ? '{{ route('wishlist.remove') }}'
-            //             : '{{ route('wishlist.add') }}';
-
-            //         fetch(url, {
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/json',
-            //                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            //             },
-            //             body: JSON.stringify({ item_id: itemId }),
-            //         })
-            //             .then(response => response.json())
-            //             .then(data => {
-            //                 toastr.clear();
-            //                 if (data.success) {
-            //                     if (isInWishlist) {
-            //                         removeItemFromSidebar(itemId); // Remove from sidebar
-            //                     } else {
-            //                         const newItem = {
-            //                             item_picture: button.getAttribute('data-item-picture'),
-            //                             item_name: button.getAttribute('data-item-name'),
-            //                             item_price: button.getAttribute('data-item-price'),
-            //                         };
-            //                         addItemToSidebar(newItem, itemId); // Add to sidebar
-            //                     }
-            //                     toastr.success(data.message);
-            //                 } else {
-            //                     toastr.error(data.message);
-            //                 }
-            //             })
-            //             .catch(error => console.error('Error adding/removing item:', error));
-            //     }
-            // });
-
+           
             function toggleWishlist(itemId, button) {
     const isInWishlist = button.classList.contains('in-wishlist');
     const url = isInWishlist
@@ -173,6 +132,7 @@ toastr.options = {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             toastr.clear(); // Clear any previous toastr messages
             if (data.success) {
                 if (isInWishlist) {
@@ -191,7 +151,8 @@ toastr.options = {
                 }
                 toastr.success(data.message);
             } else {
-                toastr.error(data.message);
+                console.log("اشتغلت")
+                toastr.sucess(data.message);
             }
         })
         .catch(error => console.error('Error adding/removing item:', error));
@@ -220,6 +181,8 @@ toastr.options = {
 
             // Add to Cart Functionality
             const addToCartButtons = document.querySelectorAll(".cartConfirm");
+            const cartCounter = document.querySelector('.cart_counter'); // Use your existing counter element
+
             addToCartButtons.forEach(button => {
                 button.addEventListener("click", function (e) {
                     e.preventDefault();
@@ -239,16 +202,24 @@ toastr.options = {
                             toastr.clear();
                             if (data.success) {
                                 toastr.success('Item added to cart successfully.');
+
+                                // Safely update the cart counter
+                                let currentCount = parseInt(cartCounter.textContent, 10); // Parse the current value safely
+                                if (isNaN(currentCount)) {
+                                    currentCount = 0; // Initialize to 0 if the counter is empty or invalid
+                                }
+                                cartCounter.textContent = currentCount + 1; // Increment the counter
                             } else {
                                 toastr.error(data.message || 'Error adding item to cart.');
                             }
                         })
                         .catch(error => {
                             console.error('Error adding to cart:', error);
-                            toastr.success('An unexpected error occurred.');
+                            toastr.error('An unexpected error occurred.');
                         });
                 });
             });
+
         });
     </script>
 </section>

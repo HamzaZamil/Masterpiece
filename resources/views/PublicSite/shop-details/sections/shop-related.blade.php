@@ -30,7 +30,7 @@
                 <div class="col-lg-3 col-md-6 product-item">
                     <div class="collection-single-box wow fadeInUp">
                         <div class="collection-box-thumb">
-                            <img src="{{ asset('storage/items/' . $relatedItem->item_picture) }}" height="250px" width="300px" alt="{{ $relatedItem->item_name }}">
+                            <img src="{{ asset('storage/items/' . $relatedItem->item_picture) }}" height="250px" width="300px" style="object-fit: contain;"  alt="{{ $relatedItem->item_name }}">
                         </div>
                         <div class="collection-box-content text-center">
                             <div class="collection-icon">
@@ -68,7 +68,7 @@
                                 <h6 class="product-name">{{ $relatedItem->item_name }}</h6>
                             </div>
                             <div class="collection-box-price">
-                                <h6>${{ number_format($relatedItem->item_price, 2) }}</h6>
+                                <h6>{{ number_format($relatedItem->item_price, 2) }} JD</h6>
                             </div>
                         </div>
                     </div>
@@ -137,51 +137,7 @@
             }
         }
 
-        // Dynamically add/remove items from wishlist
-        // document.addEventListener('click', function (event) {
-        //     if (event.target.closest('.wishlistBtn')) {
-        //         const button = event.target.closest('.wishlistBtn');
-        //         const itemId = button.getAttribute('data-item-id');
-        //         const isInWishlist = button.classList.contains('in-wishlist');
-
-        //         const url = isInWishlist
-        //             ? '{{ route('wishlist.remove') }}'
-        //             : '{{ route('wishlist.add') }}';
-
-        //         fetch(url, {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        //             },
-        //             body: JSON.stringify({ item_id: itemId }),
-        //         })
-        //             .then(response => response.json())
-        //             .then(data => {
-        //                 toastr.clear(); // Clear any previous toastr messages
-        //                 if (data.success) {
-        //                     if (isInWishlist) {
-        //                         button.classList.remove('in-wishlist');
-        //                         button.innerHTML = '<i class="far fa-heart"></i>';
-        //                         removeItemFromSidebar(itemId);
-        //                     } else {
-        //                         button.classList.add('in-wishlist');
-        //                         button.innerHTML = '<i class="fas fa-heart"></i>';
-        //                         const newItem = {
-        //                             item_picture: button.getAttribute('data-item-picture'),
-        //                             item_name: button.getAttribute('data-item-name'),
-        //                             item_price: button.getAttribute('data-item-price'),
-        //                         };
-        //                         addItemToSidebar(newItem, itemId);
-        //                     }
-        //                     toastr.success(data.message);
-        //                 } else {
-        //                     toastr.error(data.message);
-        //                 }
-        //             })
-        //             .catch(error => console.error('Error adding/removing item:', error));
-        //     }
-        // });
+       
 
         function toggleWishlist(itemId, button) {
     const isInWishlist = button.classList.contains('in-wishlist');
@@ -223,40 +179,49 @@
         .catch(error => console.error('Error adding/removing item:', error));
 }
 
-        // Add to Cart functionality
-        const addToCartButtons = document.querySelectorAll('.cartConfirm');
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
+       // Add to Cart functionality
+const addToCartButtons = document.querySelectorAll('.cartConfirm');
+const cartCounter = document.querySelector('.cart_counter'); // Use your existing counter element
 
-                const productId = this.getAttribute('data-product-id');
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.preventDefault();
 
-                fetch("{{ route('cart.add') }}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({
-                        product_id: productId,
-                        quantity: 1, // Default quantity is 1
-                    }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        toastr.clear(); // Clear any previous toastr messages
-                        if (data.success) {
-                            toastr.success('Item added to cart successfully.');
-                        } else {
-                            toastr.error(data.message || 'Error adding item to cart.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error adding to cart:', error);
-                        toastr.error('An unexpected error occurred.');
-                    });
+        const productId = this.getAttribute('data-product-id');
+
+        fetch("{{ route('cart.add') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: 1, // Default quantity is 1
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                toastr.clear(); // Clear any previous toastr messages
+
+                if (data.success) {
+                    // Safely update the counter
+                    let currentCount = parseInt(cartCounter.textContent, 10); // Parse the current value safely
+                    if (isNaN(currentCount)) {
+                        currentCount = 0; // Initialize to 0 if the counter is empty or invalid
+                    }
+                    cartCounter.textContent = currentCount + 1; // Increment the counter
+                    toastr.success('Item added to cart successfully!');
+                } else {
+                    toastr.error(data.message || 'Error adding item to cart.');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+                toastr.error('An unexpected error occurred.');
             });
-        });
+    });
+});
 
         // Fetch initial wishlist state
         fetchWishlist();

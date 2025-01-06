@@ -25,7 +25,6 @@
         @include('publicSite.homePage.sections.collection-section')
         @include('publicSite.homePage.sections.product-section')
         @include('publicSite.homePage.sections.testimonial-slider')
-        @include('publicSite.homePage.sections.quick-view-popup')
         
     </main>
 

@@ -38,7 +38,8 @@
         }
 
         // Add item to the sidebar dynamically
-        function addItemToSidebar(item, itemId) {
+        window.addItemToSidebar = function(item, itemId) {
+            console.log(item)
             if (!document.getElementById(`wishlist-item-${itemId}`)) {
                 const wishlistHtml = `
                     <div class="white_item" id="wishlist-item-${itemId}">

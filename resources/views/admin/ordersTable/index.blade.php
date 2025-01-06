@@ -29,13 +29,11 @@
                             </button>
                         </div>
 
-                        <!-- Table with stripped rows -->
+                        <!-- Table with striped rows -->
                         <div class="table-responsive">
-                            <h2 class="mb-4">Orders Table</h2>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-striped" id="ordersTable">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>#</th>
                                         <th>User Name</th>
                                         <th>Order Total</th>
                                         <th>Order Address</th>
@@ -46,18 +44,17 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                     <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ $order->user->name }}</td> <!-- Assuming 'name' is the user name field -->
-                                        <td>{{ $order->order_total }}</td>
+                                        <td>{{ $order->user ? $order->user->name : 'No User' }}</td>
+                                        <td>JD{{ number_format($order->order_total, 2) }}</td>
                                         <td>{{ $order->order_address }}</td>
-                                        <td>{{ $order->order_status }}</td>
+                                        <td>{{ ucfirst($order->order_status) }}</td>
                                         <td class="d-flex">
-                                            <a href="{{ route('admin.orders.showOrder', $order->id) }}" class="btn btn-info"><i class="bi bi-eye"></i></a>
-                                            <a href="{{ route('admin.orders.editOrder', $order->id) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ route('admin.orders.showOrder', $order->id) }}" class="btn btn-info me-2"><i class="bi bi-eye"></i></a>
+                                            <a href="{{ route('admin.orders.editOrder', $order->id) }}" class="btn btn-warning me-2"><i class="bi bi-pencil-square"></i></a>
                                             <form action="{{ route('admin.orders.deleteOrder', $order->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -74,5 +71,39 @@
     </section>
 
 </main><!-- End #main -->
+
+<!-- Add DataTables dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
+
+<script>
+    $(document).ready(function() {
+        $('#ordersTable').DataTable({
+            paging: true,
+            searching: true,
+            responsive: true,
+            order: [[0, 'asc']], // Default order by the first column (ID)
+            language: {
+                search: "Search:",
+                lengthMenu: "Show _MENU_ entries",
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            }
+        });
+    });
+
+    function confirmDelete(button) {
+        if (confirm('Are you sure you want to delete this order?')) {
+            button.closest('form').submit();
+        }
+    }
+</script>
 
 @endsection

@@ -710,12 +710,12 @@
   }
   
   .sidebar-nav .nav-link:hover {
-    color: #ff7b1f;
+    color: #b27659;
     background: #f6f9ff;
   }
   
   .sidebar-nav .nav-link:hover i {
-    color: #ff7b1f;
+    color: #b27659;
   }
   
   .sidebar-nav .nav-link .bi-chevron-down {
@@ -1234,6 +1234,4 @@
     font-size: 13px;
     color: #012970;
   }
-  
-  
   

@@ -20,16 +20,18 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center mb-4">Items Table</h2>
-                        
+                        <h5 class="card-title">Items Table</h5>
+
                         <!-- Add Item Button -->
-                        <div class="text-end mb-3">
-                            <a href="{{ route('admin.items.addItem') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add Item</a>
+                        <div class="mb-3 text-end">
+                            <button class="btn btn-success" onclick="location.href = '{{Route('admin.items.addItem')}}'">
+                                <i class="bi bi-plus-circle"></i> Add Item
+                            </button>
                         </div>
 
-                        <!-- Items Table -->
+                        <!-- Table with striped rows -->
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-bordered table-striped" id="itemsTable">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>Item Type</th>
@@ -40,36 +42,36 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($items as $item)
-                                        <tr>
-                                            <td>{{ ucfirst($item->item_type) }}</td>
-                                            <td>{{ $item->item_name }}</td>
-                                            <td>
-                                                @if($item->item_picture)
-                                                <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="Item Picture" width="100px" height="100px">
-                                                @else
-                                                    <span>No Image</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <!-- Show Button -->
-                                                <a href="{{ route('admin.items.showItem', $item->id) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                                
-                                                <!-- Edit Button -->
-                                                <a href="{{ route('admin.items.editItem', $item->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <tr>
+                                        <td>{{ ucfirst($item->item_type) }}</td>
+                                        <td>{{ $item->item_name }}</td>
+                                        <td>
+                                            @if($item->item_picture)
+                                            <img src="{{ asset('storage/items/' . $item->item_picture) }}" alt="Item Picture" width="100px" height="100px">
+                                            @else
+                                                <span>No Image</span>
+                                            @endif
+                                        </td>
+                                        <td class="d-flex">
+                                            <!-- Edit Button -->
+                                            <a href="{{ route('admin.items.editItem', $item->id) }}" class="btn btn-warning me-2"><i class="bi bi-pencil-square"></i></a>
+                                            
+                                            <!-- Show Button -->
+                                            <a href="{{ route('admin.items.showItem', $item->id) }}" class="btn btn-info me-2"><i class="bi bi-eye"></i></a>
 
-                                                <!-- Delete Button -->
-                                                <form action="{{ route('admin.items.deleteItem', $item->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                            <!-- Delete Button -->
+                                            <form action="{{ route('admin.items.deleteItem', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete(this)"><i class="bi bi-trash3-fill"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -78,5 +80,39 @@
     </section>
 
 </main><!-- End #main -->
+
+<!-- Add DataTables dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
+
+<script>
+    $(document).ready(function() {
+        $('#itemsTable').DataTable({
+            paging: true,
+            searching: true,
+            responsive: true,
+            order: [[0, 'asc']], // Default order by the first column (Item Type)
+            language: {
+                search: "Search:",
+                lengthMenu: "Show _MENU_ entries",
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            }
+        });
+    });
+
+    function confirmDelete(button) {
+        if (confirm('Are you sure you want to delete this item?')) {
+            button.closest('form').submit();
+        }
+    }
+</script>
 
 @endsection

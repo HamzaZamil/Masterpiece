@@ -3,18 +3,17 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 wow fadeInUp">
                 <div class="footer-logo">
-                    <a href="/" title="Cat Master"><img src="{{ asset('assets/img/pettieLogo.png') }}"  style="height: 100px; width: auto;"
+                    <a href="/" title="Pettie"><img src="{{ asset('assets/img/pettieLogo.png') }}"  style="height: 100px; width: auto;"
                             alt="logo"></a>
                 </div>
-                <div class="footer-desc">
-                    <p>Curabitur vennatis finibus nte et
-                        magna eu ve Aliuam puus seim
-                        rhoncus bibendum,</p>
+                <div class="footer-desc" style="margin-top: -45px !important">
+                    <p>Discover joy with Pettie – premium food, toys, and care for your beloved pets.
+                    </p>
                 </div>
                 <div class="footer-social">
                     <ul>
                         <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        {{-- <li><a href="#"><i class="fab fa-twitter"></i></a></li> --}}
                         <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                         
                     </ul>
@@ -26,8 +25,8 @@
                         <h5>Useful Links</h5>
                     </div>
                     <ul>
-                        <li><a href="#"><i class="bi bi-arrow-right"></i>New Products</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right"></i>Best Sellers</a></li>
+                        <li><a href="/#new/arrivals"><i class="bi bi-arrow-right"></i>New Arrivals</a></li>
+                        <li><a href="/#best/seller"><i class="bi bi-arrow-right"></i>Best Sellers</a></li>
                     </ul>
                 </div>
             </div>
@@ -37,9 +36,9 @@
                         <h5>My Account</h5>
                     </div>
                     <ul>
-                        <li><a href="#"><i class="bi bi-arrow-right"></i>My Profile</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right"></i>My Order History</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right"></i>My Wish List</a></li>
+                        <li><a href="user/profile"><i class="bi bi-arrow-right"></i>My Profile</a></li>
+                        <li><a href="user/profile"><i class="bi bi-arrow-right"></i>My Order History</a></li>
+                        {{-- <li><a href="#"><i class="bi bi-arrow-right"></i>My Wish List</a></li> --}}
                     </ul>
                 </div>
             </div>
@@ -57,7 +56,7 @@
                     <div class="footer-contact-item">
                         <div><i class="fas fa-map-marker-alt"></i> </div>
                         <div>
-                            <h6> Amman , Jordan Ismail Zakaria St</h6>
+                            <h6> Amman, Jordan Ismail Zakaria St</h6>
                         </div>
                     </div>
                 </div>

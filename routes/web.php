@@ -13,6 +13,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\WishListController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PublicSite\UserCartController;
 use App\Http\Controllers\PublicSite\UserHomePageController;
 use App\Http\Controllers\PublicSite\UserProfileController;
@@ -97,10 +98,11 @@ Route::middleware(['role:vet'])->group(function () {
   
  //add the admin route here
 
- Route::get('/index', function(){
-  return view('admin.index');
-})->name('admin.index');
+ Route::get('/index', [DashboardController::class, 'index'])->name('admin.index');
 
+ Route::get('/admin', [DashboardController::class, 'index'] )->name('admin.home'); 
+
+ Route::get('/admin', [DashboardController::class, 'index'] )->name('admin.dashboard'); 
 
 Route::get('/adminProfile', function(){
   return view('admin.adminsTable.profile');
@@ -110,13 +112,7 @@ Route::get('/','index' )->name('index');
 Route::get('/contactUsDetails','show' )->name('show');
 });
 
-Route::get('/admin', function () {
-return view('admin.index');
-})->name('admin.home'); 
 
-Route::get('/admin', function () {
- return view('admin.index');
-})->name('admin.dashboard'); 
 
 Route::controller(UserController::class)->prefix('admin/users')->name('admin.users.')->group(function(){
 Route::get('/','index' )->name('index');

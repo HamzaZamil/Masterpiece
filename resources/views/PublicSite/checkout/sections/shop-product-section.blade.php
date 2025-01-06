@@ -60,22 +60,22 @@
                                 @foreach($cart as $productId => $item)
                                 <tr>
                                     <td>{{ $item['item_name'] }} x {{ $item['quantity'] }}</td>
-                                    <td>${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+                                    <td>{{ number_format($item['price'] * $item['quantity'], 2) }} JD</td>
                                 </tr>
                                 @endforeach
                                 <tr>
                                     <td class="border-top">Sub Total</td>
-                                    <td class="border-top">${{ number_format($subtotal, 2) }}</td>
+                                    <td class="border-top">{{ number_format($subtotal, 2) }} JD</td>
                                 </tr>
                                 <tr>
                                     <td class="border-top">Shipping Fee</td>
-                                    <td class="border-top">${{ number_format($shipping, 2) }}</td>
+                                    <td class="border-top">{{ number_format($shipping, 2) }} JD</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th class="border-top">Grand Total</th>
-                                    <th class="border-top">${{ number_format($grandTotal, 2) }}</th>
+                                    <th class="border-top">{{ number_format($grandTotal, 2) }} JD</th>
                                 </tr>
                             </tfoot>
                         </table>

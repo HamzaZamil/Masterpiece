@@ -4,7 +4,6 @@
 
 @include('publicSite.shop-details.sections.banner-inner-section')
 @include('publicSite.shop-details.sections.shop-details-section')
-@include('publicSite.shop-details.sections.shop-details-info')
 @include('publicSite.shop-details.sections.shop-related')
 
 

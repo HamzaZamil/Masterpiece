@@ -12,6 +12,12 @@
              background-color: #1d9f3c !important; /* Light green */
              color: #dfe0df !important; /* Dark green text */
          }
+         .toast-error {
+            opacity: 2 !important;
+    background-color: red !important;
+    color: white !important;
+    border-left: 6px solid #f5c2c7;
+}
          </style>
     </header>
 @include('PublicSite.source.partials.header')
@@ -20,12 +26,12 @@
 
 @include('PublicSite.source.partials.nav-bar')
 
+@include('PublicSite.source.partials.wish-list-side-bar')
 
 @yield('content')
 
 @include('PublicSite.source.partials.footer-public')
 
-@include('PublicSite.source.partials.wish-list-side-bar')
 
 @include('PublicSite.source.partials.cart-side-bar')
 
@@ -33,7 +39,6 @@
 
 @include('PublicSite.source.partials.scroll-up')
 
-@include('PublicSite.source.partials.quick-view-popup')
 
 @include('PublicSite.source.partials.scripts-public')
 </body>

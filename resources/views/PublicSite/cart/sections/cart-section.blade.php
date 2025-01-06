@@ -27,11 +27,11 @@
                         <tbody class="border-top-0">
                             @foreach($cart as $productId => $item)
                                 <tr>
-                                    <td><img class="cart-thumb" src="{{ $item['image'] ?? asset('storage/items/default.jpg') }}" height="150px" width="250px" alt="Product Image"></td>
+                                    <td><img class="cart-thumb" src="{{ $item['image'] ?? asset('storage/items/default.jpg') }}" height="150px" width="250px" alt="Product Image" style="object-fit: contain"></td>
                                     <td>{{ $item['item_name'] ?? 'Product ' . $productId }}</td>
-                                    <td>${{ number_format($item['price'] ?? 0, 2) }}</td>
+                                    <td>{{ number_format($item['price'] ?? 0, 2) }} JD</td>
                                     <td>{{ $item['quantity'] }}</td> <!-- Display Quantity -->
-                                    <td>${{ number_format(($item['price'] ?? 0) * $item['quantity'], 2) }}</td>
+                                    <td>{{ number_format(($item['price'] ?? 0) * $item['quantity'], 2) }} JD</td>
                                     <td>
                                         <form action="{{ route('cart.remove') }}" method="POST" style="display: inline;">
                                             @csrf
@@ -63,15 +63,15 @@
                             <tbody>
                                 <tr class="subtotal">
                                     <th style="font-size: 1.2rem; text-align: left;">Subtotal</th>
-                                    <td style="font-size: 1.2rem; text-align: right;"><span id="subtotal">${{ number_format(array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart)), 2) }}</span></td>
+                                    <td style="font-size: 1.2rem; text-align: right;"><span id="subtotal">{{ number_format(array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart)), 2) }} JD</span></td>
                                 </tr>
                                 <tr class="shopping-fee">
                                     <th style="font-size: 1.2rem; text-align: left;">Shopping Fee</th>
-                                    <td style="font-size: 1.2rem; text-align: right;"><span id="shopping">$5.00</span></td>
+                                    <td style="font-size: 1.2rem; text-align: right;"><span id="shopping">5.00 JD</span></td>
                                 </tr>
                                 <tr class="total">
                                     <th style="font-size: 1.4rem; font-weight: bold; text-align: left;">Total</th>
-                                    <td style="font-size: 1.4rem; font-weight: bold; text-align: right;"><span id="total">${{ number_format(array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart)) + 5, 2) }}</span></td>
+                                    <td style="font-size: 1.4rem; font-weight: bold; text-align: right;"><span id="total">{{ number_format(array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart)) + 5, 2) }} JD</span></td>
                                 </tr>
                             </tbody>
                         </table>

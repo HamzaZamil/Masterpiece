@@ -87,11 +87,11 @@
 </head>
 <header id="header" class="header fixed-top d-flex align-items-center">
 
-  <i class="bi bi-list toggle-sidebar-btn" style="color:#ff7b1f;"></i>
+  <i class="bi bi-list toggle-sidebar-btn" style="color:#b27659;"></i>
     <div class="d-flex align-items-center justify-content-between logo-color">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="{{asset('assets/img/LogoPic.png')}}"></img>
-        <img src="{{asset('assets/img/wordLogoPic.png')}}"></img>
+      <a href="/" class="logo d-flex align-items-center">
+        <img src="{{asset('assets/img/logoPettiePic.png')}}"></img>
+        <img src="{{asset('assets/img/logoTextPic.png')}}"></img>
       </a>
     </div><!-- End Logo -->
 
