@@ -299,34 +299,34 @@
                         @else
                             <div class="orders-slider">
                                 @foreach($orders as $order)
-                                    <div class="order-slide mb-4">
-                                        <div class="order-card p-4 bg-light rounded-3">
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h5 class="mb-0" style="color: #b17457;">Order #{{ $order->id }}</h5>
-                                                <span class="badge" style="background: linear-gradient(135deg, #b17457 0%, #925c42 100%);">
+                                    <div class="order-slide mb-3">
+                                        <div class="order-card p-2 bg-light rounded-3" style="font-size: 0.875rem;">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="mb-0" style="color: #b17457; font-size: 1rem;">Order #{{ $order->id }}</h6>
+                                                <span class="badge" style="background: linear-gradient(135deg, #b17457 0%, #925c42 100%); font-size: 0.75rem;">
                                                     {{ $order->order_status }}
                                                 </span>
                                             </div>
                                             
-                                            <div class="order-details mb-3">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <i class="fas fa-calendar-alt profile-icon me-2"></i>
+                                            <div class="order-details mb-2">
+                                                <div class="d-flex align-items-center mb-1">
+                                                    <i class="fas fa-calendar-alt profile-icon me-1"></i>
                                                     <span>{{ $order->created_at->format('d M Y') }}</span>
                                                 </div>
                                                 <div class="d-flex align-items-center">
-                                                    <i class="fas fa-dollar-sign profile-icon me-2"></i>
-                                                    <span>${{ $order->order_total }}</span>
+                                                    <i class="fas fa-dollar-sign profile-icon me-1"></i>
+                                                    <span>     {{ $order->order_total }} JD</span>
                                                 </div>
                                             </div>
-
+            
                                             <div class="order-items">
-                                                <h6 class="mb-2" style="color: #374151;">Items:</h6>
-                                                <ul class="list-unstyled">
+                                                <h6 class="mb-1" style="color: #374151; font-size: 0.9rem;">Items:</h6>
+                                                <ul class="list-unstyled mb-0">
                                                     @foreach($order->items as $item)
-                                                        <li class="d-flex align-items-center mb-2">
-                                                            <i class="fas fa-circle me-2" style="font-size: 0.5rem; color: #b17457;"></i>
+                                                        <li class="d-flex align-items-center mb-1" style="font-size: 0.8rem;">
+                                                            <i class="fas fa-circle me-1" style="font-size: 0.4rem; color: #b17457;"></i>
                                                             {{ $item->item_name }} 
-                                                            <span class="ms-2 text-muted">(x{{ $item->pivot->quantity }})</span>
+                                                            <span class="ms-1 text-muted">(x{{ $item->pivot->quantity }})</span>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -339,6 +339,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 

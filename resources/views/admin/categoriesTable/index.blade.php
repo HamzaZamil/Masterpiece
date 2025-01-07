@@ -77,6 +77,17 @@
 <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
 
+<!-- SweetAlert for Error Messages -->
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ session("error") }}'
+    });
+</script>
+@endif
+
 <script>
     $(document).ready(function() {
         // Initialize DataTable with pagination and search enabled
@@ -98,6 +109,12 @@
             }
         });
     });
+
+    function confirmDelete(button) {
+        if (confirm('Are you sure you want to delete this category?')) {
+            button.closest('form').submit();
+        }
+    }
 </script>
 
 @endsection

@@ -122,46 +122,71 @@
 
     <!-- Wishlist and Other Functionalities -->
     <script>
-
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const showMoreBtn = document.getElementById('showMoreBtn');
     const productContainer = document.getElementById('productContainer');
     const products = Array.from(productContainer.querySelectorAll('.product-item'));
+    const productSearch = document.getElementById('productSearch');
+    const itemTypeFilter = document.getElementById('itemTypeFilter');
 
     let visibleCount = 8; // Number of items initially visible
 
-    // Initially hide all products beyond the visibleCount
-    products.forEach((product, index) => {
-        if (index >= visibleCount) {
-            product.style.display = 'none';
-        }
-    });
+    function updateProductVisibility() {
+        const searchValue = productSearch.value.toLowerCase();
+        const selectedType = itemTypeFilter.value.toLowerCase();
 
-    // Show the "Show More" button if there are more products than visibleCount
-    if (products.length > visibleCount) {
-        showMoreBtn.style.display = 'block';
-    }
+        // Filter products based on search and filter criteria
+        const filteredProducts = products.filter(product => {
+            const productType = product.getAttribute('data-item-type').toLowerCase();
+            const productName = product.querySelector('.product-name').textContent.toLowerCase();
 
-    showMoreBtn.addEventListener('click', function () {
-        // Increase the visible count
-        const newVisibleCount = visibleCount + 8;
+            const matchesSearch = productName.includes(searchValue);
+            const matchesFilter = selectedType === 'all' || productType === selectedType;
 
-        // Show the next set of products
-        products.forEach((product, index) => {
-            if (index < newVisibleCount) {
+            return matchesSearch && matchesFilter;
+        });
+
+        // Reset visibility for all products
+        products.forEach(product => (product.style.display = 'none'));
+
+        // Show only the filtered products up to the visible count
+        filteredProducts.forEach((product, index) => {
+            if (index < visibleCount) {
                 product.style.display = 'block';
             }
         });
 
-        // Update the visible count
-        visibleCount = newVisibleCount;
-
-        // Hide the button if all products are visible
-        if (visibleCount >= products.length) {
+        // Show or hide the "Show More" button
+        if (visibleCount >= filteredProducts.length) {
             showMoreBtn.style.display = 'none';
+        } else {
+            showMoreBtn.style.display = 'block';
         }
+    }
+
+    // Attach event listeners for search and filter
+    productSearch.addEventListener('input', () => {
+        visibleCount = 8; // Reset visible count when filtering
+        updateProductVisibility();
     });
+
+    itemTypeFilter.addEventListener('change', () => {
+        visibleCount = 8; // Reset visible count when filtering
+        
+        updateProductVisibility();
+        showMoreBtn.style.display = 'none';
+
     });
+
+    // Show More button click
+    showMoreBtn.addEventListener('click', function () {
+        visibleCount += 8; // Increase visible count
+        updateProductVisibility(); // Reapply visibility logic
+    });
+
+    // Initialize visibility on page load
+    updateProductVisibility();
+});
 
 
     toastr.options = {

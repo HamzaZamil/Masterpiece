@@ -288,6 +288,13 @@
             background: rgba(177, 116, 87, 0.1);
             transform: translateX(5px);
         }
+
+        .error-message {
+         color: red;
+         font-size: 0.9em;
+         margin-top: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -299,105 +306,143 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
             
+            <!-- First Name and Last Name Section -->
             <div class="form-section">
                 <div class="form-float">
-                    <input type="text" id="name" name="name" class="form-control" placeholder=" " required>
+                    <input type="text" id="name" name="name" class="form-control" placeholder=" " value="{{ old('name') }}" required>
                     <label for="name">First Name</label>
                     <i class="fas fa-user form-icon"></i>
+                    @error('name')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
-
+    
                 <div class="form-float">
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder=" " required>
+                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder=" " value="{{ old('last_name') }}" required>
                     <label for="last_name">Last Name</label>
                     <i class="fas fa-user form-icon"></i>
+                    @error('last_name')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
-
+    
+            <!-- Email and Phone Number Section -->
             <div class="form-section">
                 <div class="form-float">
-                    <input type="email" id="email" name="email" class="form-control" placeholder=" " required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder=" " value="{{ old('email') }}" required>
                     <label for="email">Email Address</label>
                     <i class="fas fa-envelope form-icon"></i>
+                    @error('email')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
-
+    
                 <div class="form-float">
-                    <input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder=" " required>
+                    <input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder=" " value="{{ old('phone_number') }}" required>
                     <label for="phone_number">Phone Number</label>
                     <i class="fas fa-phone form-icon"></i>
+                    @error('phone_number')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
-
+    
+            <!-- Address and Street Section -->
             <div class="form-section">
                 <div class="form-float">
-                    <input type="text" id="address" name="address" class="form-control" placeholder=" " required>
+                    <input type="text" id="address" name="address" class="form-control" placeholder=" " value="{{ old('address') }}" required>
                     <label for="address">Address</label>
                     <i class="fas fa-home form-icon"></i>
+                    @error('address')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
-
+    
                 <div class="form-float">
-                    <input type="text" id="street" name="street" class="form-control" placeholder=" " required>
+                    <input type="text" id="street" name="street" class="form-control" placeholder=" " value="{{ old('street') }}" required>
                     <label for="street">Street</label>
                     <i class="fas fa-road form-icon"></i>
+                    @error('street')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
-
+    
+            <!-- City and Gender Section -->
             <div class="form-section">
                 <div class="form-group">
-                    <select id="city" name="city" class="form-control">
-                        <option value="" disabled selected>Select your city</option>
-                        <option value="Amman">Amman</option>
-                        <option value="Zarqa">Zarqa</option>
-                        <option value="Irbid">Irbid</option>
-                        <option value="Aqaba">Aqaba</option>
-                        <option value="Madaba">Madaba</option>
-                        <option value="Jerash">Jerash</option>
-                        <option value="Ajloun">Ajloun</option>
-                        <option value="Karak">Karak</option>
-                        <option value="Tafilah">Tafilah</option>
-                        <option value="Maan">Maan</option>
-                        <option value="Balqa">Balqa</option>
-                        <option value="Mafraq">Mafraq</option>
+                    <select id="city" name="city" class="form-control" required>
+                        <option value="" disabled {{ old('city') ? '' : 'selected' }}>Select your city</option>
+                        <option value="Amman" {{ old('city') == 'Amman' ? 'selected' : '' }}>Amman</option>
+                        <option value="Zarqa" {{ old('city') == 'Zarqa' ? 'selected' : '' }}>Zarqa</option>
+                        <option value="Irbid" {{ old('city') == 'Irbid' ? 'selected' : '' }}>Irbid</option>
+                        <option value="Aqaba" {{ old('city') == 'Aqaba' ? 'selected' : '' }}>Aqaba</option>
+                        <option value="Madaba" {{ old('city') == 'Madaba' ? 'selected' : '' }}>Madaba</option>
+                        <option value="Jerash" {{ old('city') == 'Jerash' ? 'selected' : '' }}>Jerash</option>
+                        <option value="Ajloun" {{ old('city') == 'Ajloun' ? 'selected' : '' }}>Ajloun</option>
+                        <option value="Karak" {{ old('city') == 'Karak' ? 'selected' : '' }}>Karak</option>
+                        <option value="Tafilah" {{ old('city') == 'Tafilah' ? 'selected' : '' }}>Tafilah</option>
+                        <option value="Maan" {{ old('city') == 'Maan' ? 'selected' : '' }}>Maan</option>
+                        <option value="Balqa" {{ old('city') == 'Balqa' ? 'selected' : '' }}>Balqa</option>
+                        <option value="Mafraq" {{ old('city') == 'Mafraq' ? 'selected' : '' }}>Mafraq</option>
                     </select>
                     <i class="fas fa-city form-icon"></i>
+                    @error('city')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
-
+    
                 <div class="form-group">
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="gender" value="male" required>
+                            <input type="radio" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }} required>
                             <i class="fas fa-mars"></i> Male
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="gender" value="female" required>
+                            <input type="radio" name="gender" value="female" {{ old('gender') == 'female' ? 'checked' : '' }} required>
                             <i class="fas fa-venus"></i> Female
                         </label>
                     </div>
+                    @error('gender')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
-
+    
+            <!-- Password and Confirmation Section -->
             <div class="form-section">
                 <div class="form-float">
                     <input type="password" id="password" name="password" class="form-control" placeholder=" " required>
                     <label for="password">Password</label>
                     <i class="fas fa-lock form-icon"></i>
+                    @error('password')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
-
+    
                 <div class="form-float">
                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder=" " required>
                     <label for="password_confirmation">Confirm Password</label>
                     <i class="fas fa-lock form-icon"></i>
+                    @error('password_confirmation')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
-
+    
+            <!-- Submit Button -->
             <button type="submit" class="btn-primary">
                 <i class="fas fa-paw"></i> Create Account
             </button>
-
+    
+            <!-- Login Link -->
             <a href="{{ route('login') }}" class="login-link">
                 <i class="fas fa-sign-in-alt"></i> Already have an account? Login here
             </a>
         </form>
     </div>
+    
 
     <script>
         // Add smooth scroll animation

@@ -23,11 +23,11 @@
                         <h5 class="card-title">Orders Table</h5>
 
                         <!-- Add Order Button -->
-                        <div class="mb-3 text-end">
+                        {{-- <div class="mb-3 text-end">
                             <button class="btn btn-success" onclick="location.href = '{{route('admin.orders.addOrder')}}'">
                                 <i class="bi bi-plus-circle"></i> Add Order
                             </button>
-                        </div>
+                        </div> --}}
 
                         <!-- Table with striped rows -->
                         <div class="table-responsive">
@@ -47,10 +47,20 @@
                                         <td>{{ $order->user ? $order->user->name : 'No User' }}</td>
                                         <td>JD{{ number_format($order->order_total, 2) }}</td>
                                         <td>{{ $order->order_address }}</td>
-                                        <td>{{ ucfirst($order->order_status) }}</td>
+                                        <td>
+                                            <form action="{{ route('admin.orders.updateOrder', $order->id) }}" method="POST" id="statusForm{{ $order->id }}">
+                                                @csrf
+                                                @method('PATCH')
+                                                <select class="form-select" name="order_status" onchange="document.getElementById('statusForm{{ $order->id }}').submit();">
+                                                    <option value="pending" {{ $order->order_status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                    <option value="accepted" {{ $order->order_status == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                                                    <option value="in_progress" {{ $order->order_status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                                                    <option value="done" {{ $order->order_status == 'done' ? 'selected' : '' }}>Done</option>
+                                                </select>
+                                            </form>
+                                        </td>
                                         <td class="d-flex">
                                             <a href="{{ route('admin.orders.showOrder', $order->id) }}" class="btn btn-info me-2"><i class="bi bi-eye"></i></a>
-                                            <a href="{{ route('admin.orders.editOrder', $order->id) }}" class="btn btn-warning me-2"><i class="bi bi-pencil-square"></i></a>
                                             <form action="{{ route('admin.orders.deleteOrder', $order->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -105,5 +115,11 @@
         }
     }
 </script>
+
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
 @endsection

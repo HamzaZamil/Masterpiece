@@ -107,8 +107,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
+        if ($category->items()->exists()) { // Adjust `products` to match the relationship name in your model
+       return redirect()->route('admin.categories.index')->with('error', 'Cannot delete this category because it has associated items.');
+   }
         // Delete the category
         $category->delete();
+
 
         // Redirect with a success message
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully!');

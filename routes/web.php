@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicSite\UserContactController;
 use App\Http\Controllers\PublicSite\UserShopItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PetController;
@@ -104,13 +106,24 @@ Route::middleware(['role:vet'])->group(function () {
 
  Route::get('/admin', [DashboardController::class, 'index'] )->name('admin.dashboard'); 
 
-Route::get('/adminProfile', function(){
-  return view('admin.adminsTable.profile');
-})->name('adminProfile');
-Route::controller(ContactUsController::class)->prefix('admin/contactUs')->name('admin.contactUs.')->group(function(){
-Route::get('/','index' )->name('index');
-Route::get('/contactUsDetails','show' )->name('show');
-});
+
+Route::get('/adminProfile', [AdminProfileController::class, 'show'])->name('adminProfile');
+
+Route::get('/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+
+
+// Route::controller(ContactUsController::class)->prefix('admin/contactUs')->name('admin.contactUs.')->group(function(){
+// Route::get('/','index' )->name('index');
+// Route::get('/contactUsDetails','show' )->name('show');
+// });
+
+Route::controller(ContactUsController::class)
+    ->prefix('admin/contactUs')
+    ->name('admin.contactUs.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index'); // Show messages
+    }); 
 
 
 
@@ -211,6 +224,8 @@ Route::get('/whyChooseUs', function(){
   return view('publicSite.whyChooseUs.whyChooseUs');
 });
 
+Route::post('/contact', [UserContactController::class, 'store'])->name('contact.store');
+
 Route::get('/contactPage', function(){
   return view('publicSite.contactPage.contactPage');
 });
@@ -225,11 +240,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 
 

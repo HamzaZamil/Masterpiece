@@ -23,11 +23,11 @@
                         <h5 class="card-title">Users Table</h5>
 
                         <!-- Add User Button -->
-                        <div class="mb-3 text-end">
+                        {{-- <div class="mb-3 text-end">
                             <button class="btn btn-success" onclick="location.href = '{{Route('admin.users.addUser')}}'">
                                 <i class="bi bi-person-plus"></i> Add User
                             </button>
-                        </div>
+                        </div> --}}
 
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">

@@ -71,16 +71,13 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'order_total' => 'required|numeric|min:0',
-            'order_address' => 'required|string|max:255',
             'order_status' => 'required|in:accepted,pending,declined,done,in_progress'
         ]);
 
         $order = Order::findOrFail($id);
         $order->update($validated);
 
-        return redirect()->route('admin.ordersTable.index')->with('success', 'Order updated successfully!');
+        return redirect()->route('admin.orders.index')->with('success', 'Order updated successfully!');
     }
 
     /**

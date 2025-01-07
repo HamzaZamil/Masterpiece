@@ -1,5 +1,5 @@
 
-<header class="header-manu-section" id="header-sticky" style="padding: 10px 0px 0px 0px; background-color: #fff;">
+ <header class="header-manu-section" id="header-sticky" style="padding: 10px 0px 0px 0px; background-color: #fff;">
     <div class="container">
         <div class="row align-items-center">
             <!-- Logo Section -->
@@ -228,4 +228,4 @@
 
     </script>
  
-</header>
+</header> 

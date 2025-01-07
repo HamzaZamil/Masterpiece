@@ -14,6 +14,7 @@
          }
          </style>
     </header> --}}
+    <link rel="icon" href="{{asset("assets/img/favicon.ico/")}}">
     @extends('publicSite.source.template')
     @section('content')
     <main>

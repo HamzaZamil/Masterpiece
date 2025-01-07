@@ -33,11 +33,16 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay=".4s">
                 <div class="footer-link">
                     <div class="footer-title">
-                        <h5>My Account</h5>
+                        <h5> Account</h5>
                     </div>
                     <ul>
-                        <li><a href="user/profile"><i class="bi bi-arrow-right"></i>My Profile</a></li>
-                        <li><a href="user/profile"><i class="bi bi-arrow-right"></i>My Order History</a></li>
+                      @if(auth()->check())
+                      <li><a href="user/profile"><i class="bi bi-arrow-right"></i>My Profile</a></li>
+                      <li><a href="user/profile"><i class="bi bi-arrow-right"></i>My Order History</a></li>     
+                      @else
+                      <li><a href="/login"><i class="bi bi-arrow-right"></i>Login</a></li>
+                      <li><a href="/register"><i class="bi bi-arrow-right"></i>Register</a></li>  
+                      @endif
                         {{-- <li><a href="#"><i class="bi bi-arrow-right"></i>My Wish List</a></li> --}}
                     </ul>
                 </div>
@@ -97,3 +102,4 @@
         </div>
     </div>
 </footer>
+

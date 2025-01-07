@@ -1,79 +1,49 @@
 @extends('admin.source.template')
 
 @section('content')
-
-
 <main id="main" class="main">
-
     <div class="pagetitle">
-      <h1>Contact Us</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active">ContactUs Table</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
+        <h1>Contacts</h1>
+    </div>
     <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Booking Table</h5>
-              
-              <!-- Table with stripped rows -->
-              <div class="container mt-5" >
-  <h2 class="mb-4" >Users Table</h2>
-  <div class="table-container">
-  <table class="table table-striped table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john.doe@example.com</td>
-        <td>+1234567890</td>
-        <td>
-          <button class="btn btn-primary btn-sm">Edit</button>
-          <button class="btn btn-danger btn-sm">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Jane</td>
-        <td>Smith</td>
-        <td>jane.smith@example.com</td>
-        <td>+0987654321</td>
-        <td>
-          <button class="btn btn-primary btn-sm">Edit</button>
-          <button class="btn btn-danger btn-sm">Delete</button>
-        </td>
-      </tr>
-      <!-- Add more user rows as needed -->
-    </tbody>
-  </table>
-</div>
-</div>
-
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Messages</h5>
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Subject</th>
+                                        <th>Message</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($contacts as $contact)
+                                    <tr>
+                                        <td>{{ $contact->name }}</td>
+                                        <td>{{ $contact->email }}</td>
+                                        <td>{{ $contact->subject }}</td>
+                                        <td>{{ $contact->message }}</td>
+                                        <td>{{ $contact->created_at->format('Y-m-d H:i') }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
         </div>
-      </div>
     </section>
-
-  </main><!-- End #main -->
-
+</main>
 @endsection

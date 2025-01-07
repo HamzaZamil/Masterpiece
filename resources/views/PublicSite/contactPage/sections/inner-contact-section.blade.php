@@ -8,7 +8,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-box-title">
-                            <h4>Office Address <br> </h4>
+                            <h4>Shop Address <br> </h4>
                         </div>
                         <div class="contact-box-info">
                             <p> <br> Amman, Jordan <br>
@@ -57,8 +57,9 @@
                         <div class="contact-box-info">
                             <p>
                                 24/7 <br>
-                                any time support team
-                                ready for supports.</p>
+                                Any time support team
+                                ready for supports.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -83,7 +84,8 @@
             <div class="contact-form">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form method="post" action="https://formspree.io/f/myyleorq"  id="dreamit-form">
+                        <form method="post" action="{{ route('contact.store') }}" id="dreamit-form">
+                            @csrf
                             <div class="contact-form-top">
                                 <div class="form-top-name">
                                     <input type="text" name="name" id="name" placeholder="Enter Your Name*" required>
@@ -95,13 +97,14 @@
                                 </div>
                             </div>
                             <div class="form-top-email">
-                                <input type="subject" name="subject" id="subject" placeholder="Enter Your Subject" required> 
-                            </div> <br>
+                                <input type="text" name="subject" id="subject" placeholder="Enter Your Subject*" required>
+                            </div>
+                            <br>
                             <div class="contact-form-message">
-                                <textarea name="message" id="message" placeholder="Write a Message."></textarea>
+                                <textarea name="message" id="message" placeholder="Write a Message*" required></textarea>
                             </div>
                             <div class="contact-form-btn cat-shop-btn">
-                                <button type="submit">Send you message <i class="bi bi-arrow-right-short"></i> <span></span></button>
+                                <button type="submit">Send your message <i class="bi bi-arrow-right-short"></i> <span></span></button>
                             </div>
                         </form>
                     </div>
@@ -109,5 +112,19 @@
             </div>
         </div>
     </div>
-
 </section>
+
+<!-- Include SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Success Message Script -->
+@if(session('success'))
+<script>
+    Swal.fire({
+        title: 'Success!',
+        text: "{{ session('success') }}",
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
+</script>
+@endif

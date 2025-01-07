@@ -89,6 +89,7 @@
                                 <label class="form-check-label" for="payment_cash">Cash on Delivery</label>
                             </div>
                         </div>
+                        <p>Enjoy the convenience of Cash on Delivery – pay when your order arrives!</p>
                         <button type="submit" class="btn btn-dark btn-primary-hover rounded-0 mt-6">Place order</button>
                     </div>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ContactUs;
 
 class ContactUsController extends Controller
 {
@@ -11,7 +12,11 @@ class ContactUsController extends Controller
      */
     public function index()
     {
-        return view('admin.contactUsTable.index');
+        // Fetch all messages from the database
+        $contacts = ContactUs::all();
+
+        // Pass the messages to the view
+        return view('admin.contactUsTable.index', compact('contacts'));
     }
 
     /**

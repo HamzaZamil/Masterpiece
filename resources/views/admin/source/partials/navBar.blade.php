@@ -109,12 +109,11 @@
 <!--Message icon-->
         <li class="nav-item dropdown">
 
-<a class="nav-link nav-icon" href="{{route('admin.contactUs.index')}}" data-bs-toggle="dropdown" >
+<a class="nav-link nav-icon" href="{{route('admin.contactUs.index')}}"  >
   <i class="bi bi-chat-left-text" ></i>
-  <span  class="badge badge-number" style="background-color:#ff7f26;">3</span>
 </a><!-- End Messages Icon -->
 
-<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+{{-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
   <li class="dropdown-header">
     You have 3 new messages
     <a href="{{route('admin.contactUs.index')}}"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -169,7 +168,7 @@
     <a href="{{route('admin.contactUs.index')}}">Show all messages</a>
   </li>
 
-</ul><!-- End Messages Dropdown Items -->
+</ul><!-- End Messages Dropdown Items --> --}}
 
 </li><!-- End Messages Nav -->
 
@@ -178,7 +177,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{asset('assets/img/my-pic.png')}}" alt="Profile" class="rounded-circle">
+            <i class="bi bi-person-circle " style="font-size: 1.4rem;"></i>
             <span class="d-none d-md-block dropdown-toggle ps-2" style="color:#080808;"></span>
           </a><!-- End Profile Iamge Icon -->
 
